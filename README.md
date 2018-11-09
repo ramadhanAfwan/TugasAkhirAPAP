@@ -1,1 +1,1 @@
-Penamaan Database "TAsilab".
+Penamaan database "TAsilab".
