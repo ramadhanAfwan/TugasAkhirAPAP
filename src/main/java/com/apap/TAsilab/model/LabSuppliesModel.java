@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "lab_supplies")
 public class LabSuppliesModel implements Serializable {
+	// Abaikan attribute ini
 	/**
 	 * 
 	 */

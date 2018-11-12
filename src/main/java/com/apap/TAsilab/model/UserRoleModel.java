@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="user_role")
 public class UserRoleModel implements Serializable {
+	// Abaikan attribute ini
 	/**
 	 * 
 	 */

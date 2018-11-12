@@ -20,6 +20,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "kebutuhan_reagen")
 public class KebutuhanReagenModel implements Serializable {
+	// Abaikan attribute ini
 	/**
 	 * 
 	 */

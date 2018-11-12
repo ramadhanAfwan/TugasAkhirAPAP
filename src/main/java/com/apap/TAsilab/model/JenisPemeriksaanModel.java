@@ -1,7 +1,9 @@
 package com.apap.TAsilab.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,6 +23,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "jenis_pemeriksaan")
 public class JenisPemeriksaanModel implements Serializable {
+	// Abaikan attribute ini
 	/**
 	 * 
 	 */
@@ -38,6 +42,9 @@ public class JenisPemeriksaanModel implements Serializable {
     @JoinColumn(name = "id_supplies", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private LabSuppliesModel supplies;
+	
+	@OneToMany(mappedBy = "jenisPemeriksaan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<PemeriksaanModel> listPemeriksaan;
 
 	public long getId() {
 		return id;
