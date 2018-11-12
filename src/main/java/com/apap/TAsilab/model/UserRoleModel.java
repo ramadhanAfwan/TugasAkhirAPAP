@@ -72,5 +72,4 @@ public class UserRoleModel implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
 }

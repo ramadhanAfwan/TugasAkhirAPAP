@@ -88,4 +88,12 @@ public class JadwalJagaModel implements Serializable {
 	public void setIdStaff(long idStaff) {
 		this.idStaff = idStaff;
 	}
+
+	public List<PemeriksaanModel> getListPemeriksaan() {
+		return listPemeriksaan;
+	}
+
+	public void setListPemeriksaan(List<PemeriksaanModel> listPemeriksaan) {
+		this.listPemeriksaan = listPemeriksaan;
+	}
 }

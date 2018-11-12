@@ -1,6 +1,7 @@
 package com.apap.TAsilab.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -49,8 +51,8 @@ public class LabSuppliesModel implements Serializable {
     @OneToMany(mappedBy = "reagen", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<KebutuhanReagenModel> listKebutuhanReagen;
     
-    @OneToMany(mappedBy = "supplies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<JenisPemeriksaanModel> listJenisPemeriksaan;
+    @ManyToMany(mappedBy = "listSupplies")
+    private List<JenisPemeriksaanModel> listJenisPemeriksaan = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -107,5 +109,4 @@ public class LabSuppliesModel implements Serializable {
 	public void setListJenisPemeriksaan(List<JenisPemeriksaanModel> listJenisPemeriksaan) {
 		this.listJenisPemeriksaan = listJenisPemeriksaan;
 	}
-	
 }
