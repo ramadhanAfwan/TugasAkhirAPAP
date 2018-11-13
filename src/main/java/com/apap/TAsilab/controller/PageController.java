@@ -10,4 +10,12 @@ public class PageController {
 	public String home() {
 		return "home";
 	}
+	@RequestMapping("/lab/stok/tambah")
+	public String tambahStok() {
+		return "addPersediaan";
+	}
+	@RequestMapping("/lab/stok")
+	public String lihatStok() {
+		return "allPersediaan";
+	}
 }

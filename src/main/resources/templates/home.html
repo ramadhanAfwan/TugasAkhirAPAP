@@ -1,7 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{components/BasePage :: basepage}">
 <head>
+    <object th:include="components/BasePage :: title" th:remove="tag"></object>
 </head>
 <body>
+    <div id="Content" class="container-full-bg">
+        <div class="jumbotron jumbotron-fluid" style="background-image: url('https://www.freewordpressheaders.com/wp-content/gallery/laboratory/laboratory-liquid-glass-beakers-website-header.jpg'); background-size: cover;">
+		  <div class="container">
+		    <h1>Sistem Informasi Laboratorium</h1>
+		    <hr class="my-4">      
+		    <p>Layanan laboratorium Rumah Sakit Anaperancis</p>
+		  </div>
+		</div>
+		
+		<div class="container">
+		  <div class="card-deck">
+		  	<div class="card" style="width:400px">
+			    <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%"> -->
+			    <div class="card-body">
+			      <h4 class="card-title">Perencanaan Kebutuhan Reagen</h4>
+			      <p>Kelola perencanaan kebutuhan reagen</p>
+			      <a href="#" class="btn btn-primary">Lihat</a>
+			    </div>
+  			</div>
+  			<div class="card" style="width:400px">
+			    <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%"> -->
+			    <div class="card-body">
+			      <h4 class="card-title">Data Persediaan Lab</h4>
+			      <p>Kelola data persediaan laboratorium</p>
+			      <a href="/lab/stok" class="btn btn-primary">Lihat</a>
+			    </div>
+  			</div>
+  			<div class="card" style="width:400px">
+			    <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%"> -->
+			    <div class="card-body">
+			      <h4 class="card-title">Jadwal Staff Jaga</h4>
+			      <p>Kelola jadwal untuk staff jaga laboratorium</p>
+			      <a href="#" class="btn btn-primary">Lihat</a>
+			    </div>
+  			</div>
+		  </div>
+		</div>
+    </div>
 </body>
 </html>
