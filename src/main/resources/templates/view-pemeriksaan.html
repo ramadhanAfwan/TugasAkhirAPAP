@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>View Pemeriksaan</title>
+	</head>
+	<body>
+		<br>
+		<h1>Data Pemeriksaan</h1>
+		<hr>
+		<h3 th:text="'Id Pemeriksaan : '+${id}"></h3>
+		<h3 th:text="'Id Pasien : '+${idPasien}"></h3>
+		<h3 th:text="'Tanggal Pengajuan : '+${tglPengajuan}"></h3>
+		<h3 th:text="'Tanggal Pemeriksaan : '+${tglPeriksa}"></h3>
+		<h3 th:text="'Status : '+${status}"></h3>
+		<h3 th:text="'Jenis Pemeriksaan : '+${jenisPemeriksaan}"></h3>
+		<br>
+		<h1> Data Staff Lab Yang Bertugas</h1>
+		<hr>
+		<h3 th:text="'id Staff : '+${idStaff}"></h3>
+		<h3 th:text="'Tanggal Tugas : '+${tglJaga}"></h3>
+		<h3 th:text="'Waktu Mulai: '+${waktuMulai}"></h3>
+		<h3 th:text="'Waktu Selesai : '+${waktuSelesai}"></h3>
+		<h3 th:text="'Hasil : '+${hasil}"></h3>
+		<hr>
+	</body>
+</html>
