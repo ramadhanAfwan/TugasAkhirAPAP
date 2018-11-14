@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "jadwal_jaga")
 public class JadwalJagaModel implements Serializable {
@@ -47,6 +49,7 @@ public class JadwalJagaModel implements Serializable {
     private long idStaff;
 	
 	@OneToMany(mappedBy = "jadwalJaga", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<PemeriksaanModel> listPemeriksaan;
 
 	public long getId() {

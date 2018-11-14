@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Add Hasil</title>
+</head>
+
+<body>
+	<h3 class="judul"> Tambah Hasil</h3>
+	<hr class="garis">
+	<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method ="POST">
+		<div class="form-group">
+			<label for="input1" class="label label-default">Jenis *</label>
+			<div class="col-sm-5">
+				<select id="jenisPemeriksaan" name="jenisPemeriksaan" required>
+    				<option th:each="i : ${jenispemeriksaan}" th:value="${i}" th:text="${i}" />
+				</select>
+    		</div>
+  		</div>
+  		<div class="form-group">
+    		<label for="input2" class="label label-default">Hasil *</label>
+    		<div class="col-sm-5">
+      			<input type="text" class="form-control" id="input2" name ="hasil" placeholder="Masukan Hasil Pemeriksaan" required>
+      			<p class="help"> Contoh: Diabetes, kanker, asma</p>
+    		</div>
+  		</div>
+  		<div class="form-group">
+    		<label for="gajiPokok" class="label label-default">Gaji Pokok *</label>
+    		<div class="col-sm-5">
+      			<select id="gajiPokok" name="gajiPokok" required>
+    				<option th:each="i : ${listGaji}" th:value="${i}" th:text="${i}" th:selected="${i==500000}" />
+				</select>
+    		</div>
+  		</div>
+  		<button type="submit" class="buttonSimpan"><i class="fa fa-check"> Simpan</i></button>
+		<a class="btn btn-primary" id="buttonBatal" th:href="@{/}" onclick="confirmCancel()"><i class="fa fa-close"> Batal</i></a>
+		<script>
+		function confirmCancel(){
+			if(confirm("Anda yakin membatalkannya?")){
+				window.location.replace("/")
+			}else{
+				
+			}
+		}</script>
+	</form>
+</body>
+</html>
