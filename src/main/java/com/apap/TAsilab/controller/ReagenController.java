@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.TAsilab.model.KebutuhanReagenModel;
 
+import com.apap.TAsilab.service.KebutuhanReagenService;
+
 @Controller
 @RequestMapping("/lab/kebutuhan")
 public class ReagenController {
 
 	@Autowired
-	ReagenService reagenService;
+	KebutuhanReagenService kebutuhanReagenService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private String addUserSubmit(@ModelAttribute KebutuhanReagenModel reagen, Model model) {
+		
 		
 		return "lihat-kebutuhan-reagen";
 	}
 	
+
 }
