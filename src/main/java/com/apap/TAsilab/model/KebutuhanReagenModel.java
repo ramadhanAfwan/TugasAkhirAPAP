@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "kebutuhan_reagen")
 public class KebutuhanReagenModel implements Serializable {
@@ -33,6 +35,7 @@ public class KebutuhanReagenModel implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reagen", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@JsonManagedReference
     private LabSuppliesModel reagen;
 	
 	@NotNull
