@@ -20,7 +20,7 @@ public class PageController {
 	
 	@RequestMapping("/")
 	public String home() {
-		return "home";
+		return "home1";
 	}
 
 	@RequestMapping("/lab/stok/tambah")
@@ -29,7 +29,7 @@ public class PageController {
 	}
 	@RequestMapping("/lab/stok")
 	public String lihatStok() {
-		return "allPersediaan";
+		return "allPersediaan1";
 	}
 	@RequestMapping(value = "/pemeriksaan/view/{id}", method=RequestMethod.GET)
 	private String viewPilot(@PathVariable(value="id") Long id, Model model) {

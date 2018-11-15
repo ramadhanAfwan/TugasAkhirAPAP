@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "jenis_pemeriksaan")
 public class JenisPemeriksaanModel implements Serializable {
@@ -42,11 +39,9 @@ public class JenisPemeriksaanModel implements Serializable {
 	
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "jenis_pemeriksaan_supplies", joinColumns = {@JoinColumn(name = "id_jenis_pemeriksaan")}, inverseJoinColumns = {@JoinColumn(name = "id_supplies")})
-	@JsonManagedReference
 	private List<LabSuppliesModel> listSupplies = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "jenisPemeriksaan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonBackReference
 	private List<PemeriksaanModel> listPemeriksaan;
 
 	public long getId() {

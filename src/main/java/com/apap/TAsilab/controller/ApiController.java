@@ -81,6 +81,10 @@ public class ApiController {
 	public BaseResponse<List<JenisPemeriksaanModel>> viewJenisPemeriksaan(){
 		BaseResponse<List<JenisPemeriksaanModel>> response = new BaseResponse<List<JenisPemeriksaanModel>>();
 		response.setStatus(200);
+		List<JenisPemeriksaanModel> model = jenisPeriksaDb.findAll();
+		for (JenisPemeriksaanModel a:model) {
+			a.setListSupplies(null);
+		}
 		response.setMessage("Success");
 		response.setResult(jenisPeriksaDb.findAll());
 		return response;
@@ -96,6 +100,10 @@ public class ApiController {
 		BaseResponse<List<JadwalJagaModel>> response = new BaseResponse<List<JadwalJagaModel>>();
 		response.setStatus(200);
 		response.setMessage("Success");
+		List<JadwalJagaModel> model = jadwalDb.findAll();
+		for (JadwalJagaModel a : model) {
+			a.setListPemeriksaan(null);
+		}
 		response.setResult(jadwalDb.findAll());
 		return response;
 	}
