@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>View Pemeriksaan</title>
+	</head>
+	<body>
+		<br>
+		<h1>Data Pemeriksaan</h1>
+		<hr>
+		<div class="container">
+			<h2 class="card-header" style="text-align:center">Daftar Pemeriksaan</h2>
+			<br>
+			<table id="table_id" class="display">
+				<thead>
+						<tr>
+							<th>Id Pasien</th>
+							<th>Tanggal Permintaan</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="pemeriksaan : *{listPemeriksaan}">
+							<td th:text="${pemeriksaan.idPasien}"></td>
+							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
+							<td th:text="${pemeriksaan.hasil}"></td>
+							<td>
+								<form th:action="@{/lab/pemeriksaan/permintaan}" method="POST">
+									<input type="hidden" name="idPasien" th:value="${pemeriksaan.idPasien}">
+									<button class="btn btn-danger" type="submit">Update</button>	
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				
+			</table>
+	
+		</div>
+	</body>
+</html>
