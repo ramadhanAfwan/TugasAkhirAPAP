@@ -18,9 +18,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "pemeriksaan")
 public class PemeriksaanModel implements Serializable {
@@ -49,13 +46,11 @@ public class PemeriksaanModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jenis_pemeriksaan", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JsonManagedReference
     private JenisPemeriksaanModel jenisPemeriksaan;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jadwal_jaga", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JsonBackReference
     private JadwalJagaModel jadwalJaga;
     
     @NotNull
