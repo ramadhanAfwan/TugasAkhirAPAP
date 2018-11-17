@@ -25,9 +25,17 @@
 							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
 							<td th:text="${pemeriksaan.hasil}"></td>
 							<td>
-								<form th:action="@{/lab/pemeriksaan/permintaan}" method="POST">
+								<form id="update">
 									<input type="hidden" name="idPasien" th:value="${pemeriksaan.idPasien}">
-									<button class="btn btn-danger" type="submit">Update</button>	
+									<input type="hidden" name="status" th:value="${pemeriksaan.status}">
+									<button id="updateButton" class="btn btn-danger" type="submit">Update</button>	
+								</form>
+							</td>
+							<td>
+								<form id="kirim">
+									<input type="hidden" name="idPasien" th:value="${pemeriksaan.idPasien}">
+									<input type="hidden" name="status" th:value="${pemeriksaan.status}">
+									<button id="kirimButton" class="btn btn-danger" type="submit">Kirim</button>	
 								</form>
 							</td>
 						</tr>
@@ -36,5 +44,38 @@
 			</table>
 	
 		</div>
+		
+		<script>
+			$('#update').submit(function(e){
+				e.preventDefault();
+		
+				$(function () {
+	                $('#update').keyup(function () {
+	                    if ($(this).val() > 1) {
+	                        //Check to see if status 1
+	                        // If there is no text within the input ten disable the button
+	                        $('#updateButton').prop('disabled', true);
+	                    } else {
+	                        //If there is text in the input, then enable the button
+	                        $('#updateButton').prop('disabled', false);
+	                    }
+	                });
+	            }); 
+			}))
+			
+			$(function(){
+			    $('#kirim').keyup(function () {
+	                    if ($(this).val() < 2) {
+	                        //Check to see if status 2
+	                        // If there is no text within the input ten disable the button
+	                        $('#kirimButton').prop('disabled', true);
+	                    } else {
+	                        //If there is text in the input, then enable the button
+	                        $('#kirimButton').prop('disabled', false);
+	                    }
+	                });
+	            }); 
+			}))
+		</script>
 	</body>
 </html>

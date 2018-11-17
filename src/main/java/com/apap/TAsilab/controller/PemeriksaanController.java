@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.apap.TAsilab.model.JenisPemeriksaanModel;
 import com.apap.TAsilab.model.LabSuppliesModel;
@@ -30,7 +31,7 @@ public class PemeriksaanController {
 	
 	
 	@RequestMapping(value = "/lab/pemeriksaan/permintaan", method = RequestMethod.GET)
-	public String viewAllJabatan(Model model) {
+	public String viewAllPemeriksaan(Model model) {
 		
 		List<PemeriksaanModel> listPemeriksaan = pemeriksaanService.findAll();
 		
@@ -40,19 +41,27 @@ public class PemeriksaanController {
 	}
 	
 	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.POST)
-	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, @ModelAttribute PemeriksaanModel statusUbah, Model model) {
+	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, Model model) {
 		
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
-		
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		
-		pemeriksaan.setTanggalPemeriksaan(date);
-		pemeriksaan.setHasil(statusUbah.getHasil());
-
 		JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
 		List<LabSuppliesModel> lab = jenisPemeriksaan.getListSupplies();
-		for(LabSuppliesModel labS: lab  ) {
-			labS.setJumlah(labS.getJumlah()-1);
+		
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		if(pemeriksaan.getStatus()==0) {
+			if(lab.size()==0) {
+				pemeriksaan.setStatus(2);
+			}
+			else {
+				pemeriksaan.setTanggalPemeriksaan(date);
+				pemeriksaan.setStatus(1);
+				for(LabSuppliesModel labS: lab  ) {
+					labS.setJumlah(labS.getJumlah()-1);
+				}
+			}
+		}
+		else {
+			pemeriksaan.setStatus(2);
 		}
 		
 		model.addAttribute("title", "Ubah Status");
