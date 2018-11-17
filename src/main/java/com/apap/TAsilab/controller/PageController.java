@@ -29,7 +29,7 @@ public class PageController {
 	}
 	@RequestMapping("/lab/stok")
 	public String lihatStok() {
-		return "allPersediaan1";
+		return "allPersediaan";
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.apap.TAsilab.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
 import java.util.List;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.expression.Lists;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,8 +43,19 @@ public class PemeriksaanController {
 		return "lihat-daftar-pemeriksaan";
 	}
 	
+	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.GET)
+	public String ubahStatus(@PathVariable(value= "id") Long idPemeriksaan, Model model) {
+		System.out.println("masuk gan");
+		
+		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
+		model.addAttribute("pemeriksaan", pemeriksaan);
+		model.addAttribute("title", "Ubah Status");
+		model.addAttribute("message", true);
+		return "ubah-status";
+	}
+	
 	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.POST)
-	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, Model model) {
+	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, @ModelAttribute PemeriksaanModel ubahStatus, Model model) {
 		
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
 		JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
@@ -50,23 +64,23 @@ public class PemeriksaanController {
 		Date date = new Date(Calendar.getInstance().getTime().getTime());
 		if(pemeriksaan.getStatus()==0) {
 			if(lab.size()==0) {
-				pemeriksaan.setStatus(2);
+				pemeriksaan.setStatus(ubahStatus.getStatus());
 			}
 			else {
 				pemeriksaan.setTanggalPemeriksaan(date);
-				pemeriksaan.setStatus(1);
+				pemeriksaan.setStatus(ubahStatus.getStatus());
 				for(LabSuppliesModel labS: lab  ) {
 					labS.setJumlah(labS.getJumlah()-1);
 				}
 			}
 		}
 		else {
-			pemeriksaan.setStatus(2);
+			pemeriksaan.setStatus(ubahStatus.getStatus());
 		}
 		
 		model.addAttribute("title", "Ubah Status");
 		model.addAttribute("message", true);
 		model.addAttribute("pemeriksaan", pemeriksaan);
-		return "ubah-status";
+		return "lihat-daftar-pemeriksaan";
 	}
 }

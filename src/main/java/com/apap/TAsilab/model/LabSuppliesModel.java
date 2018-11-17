@@ -49,7 +49,6 @@ public class LabSuppliesModel implements Serializable {
     private String deskripsi;
     
     @OneToMany(mappedBy = "reagen", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    
     private List<KebutuhanReagenModel> listKebutuhanReagen;
     
     @ManyToMany(mappedBy = "listSupplies")
