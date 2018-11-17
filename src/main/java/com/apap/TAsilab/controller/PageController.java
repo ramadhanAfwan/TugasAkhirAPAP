@@ -20,7 +20,7 @@ public class PageController {
 	
 	@RequestMapping("/")
 	public String home() {
-		return "home1";
+		return "home";
 	}
 
 	@RequestMapping("/lab/stok/tambah")
@@ -29,7 +29,7 @@ public class PageController {
 	}
 	@RequestMapping("/lab/stok")
 	public String lihatStok() {
-		return "allPersediaan1";
+		return "allPersediaan";
 	}
 	
 }

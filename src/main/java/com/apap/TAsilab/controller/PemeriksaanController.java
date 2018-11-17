@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,6 +38,15 @@ public class PemeriksaanController {
 		model.addAttribute("title", "Daftar Pemeriksaan");
 		model.addAttribute("listPemeriksaan", listPemeriksaan);
 		return "lihat-daftar-pemeriksaan";
+	}
+	
+	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.GET)
+	public String ubahStatus(@RequestParam(value= "id") Long idPemeriksaan, Model model) {
+		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
+		model.addAttribute("pemeriksaan", pemeriksaan);
+		model.addAttribute("title", "Ubah Status");
+		model.addAttribute("message", true);
+		return "ubah-status";
 	}
 	
 	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.POST)
