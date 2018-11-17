@@ -1,5 +1,4 @@
 package com.apap.TAsilab.service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,11 @@ import com.apap.TAsilab.repository.LabSuppliesDB;
 @Transactional
 public class LabSuppliesServiceImpl implements LabSuppliesService {
 	@Autowired
-	LabSuppliesDB labSuppliesDB;
+	LabSuppliesDB labSuppliesDb;
 
 	@Override
 	public List<LabSuppliesModel> getAllReagen() {
-		List<LabSuppliesModel> allSupplies = labSuppliesDB.findAll();
+		List<LabSuppliesModel> allSupplies = labSuppliesDb.findAll();
 		
 		List<LabSuppliesModel> listReagen = new ArrayList<LabSuppliesModel>();
 		for (LabSuppliesModel supplies :allSupplies) {
@@ -32,7 +31,11 @@ public class LabSuppliesServiceImpl implements LabSuppliesService {
 
 	@Override
 	public LabSuppliesModel getSuppliesDetailById(long id) {
-		return labSuppliesDB.findById(id).get();
+		return labSuppliesDb.findById(id).get();
 	}
 	
+	@Override
+	public List<LabSuppliesModel> getAllSupplies() {
+		return labSuppliesDb.findAll();
+	}
 }
