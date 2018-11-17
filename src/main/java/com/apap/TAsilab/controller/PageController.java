@@ -23,14 +23,6 @@ public class PageController {
 		return "home";
 	}
 
-	@RequestMapping("/lab/stok/tambah")
-	public String tambahStok() {
-		return "addPersediaan";
-	}
-	@RequestMapping("/lab/stok")
-	public String lihatStok() {
-		return "allPersediaan";
-	}
 	@RequestMapping(value = "/pemeriksaan/view/{id}", method=RequestMethod.GET)
 	private String viewPilot(@PathVariable(value="id") Long id, Model model) {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(id);

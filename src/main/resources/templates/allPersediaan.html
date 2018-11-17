@@ -14,20 +14,27 @@
 	</div>
 	<div class="container">
 		<a href="/lab/stok/tambah" class="btn btn-primary">Tambah Data Persediaan Lab</a>
+		<br>
+		<br>
+		<h4 th:text="${msg}"></h4>
   	</div>
     <div class="container vertical-center" style="padding-top:32px;">
         <div class="table-responsive table">
         	<table class="table table-hover" id="myTable">
         		<thead>
+        			<th>Id</th>
+        			<th>Jenis</th>
         			<th>Nama</th>
+        			<th>Jumlah</th>
         			<th>Deskripsi</th>
-        			<th>Gaji Pokok</th>
         		</thead>
         		<tbody>
-     			<tr  th:each  = "jabatan : ${allJabatan}" >
-     				<td th:text="${jabatan.nama}"></td>
-     				<td th:text="${jabatan.deskripsi}"></td>
-     				<td th:text="'Rp' + ${#numbers.formatInteger(jabatan.getGaji_pokok(), 0)}"></td>
+     			<tr  th:each  = "supplies : ${allSupplies}" >
+     				<td th:text="${supplies.id}"></td>
+     				<td th:text="${supplies.jenis}"></td>
+     				<td th:text="${supplies.nama}"></td>
+     				<td th:text="${supplies.jumlah}"></td>
+     				<td th:text="${supplies.deskripsi}"></td>
      			</tr>
      		</tbody>
         	</table>
