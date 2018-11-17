@@ -34,4 +34,16 @@ public class LabSuppliesServiceImpl implements LabSuppliesService{
 		LabSuppliesDb.save(labSup);
 	}
 
+	@Override
+	public LabSuppliesModel findById(long id) {
+		// TODO Auto-generated method stub
+		return LabSuppliesDb.getOne(id);
+	}
+
+	@Override
+	public void updateLabSupplies(LabSuppliesModel labSupplies) {
+		// TODO Auto-generated method stub
+		LabSuppliesDb.save(labSupplies);
+	}
+
 }
