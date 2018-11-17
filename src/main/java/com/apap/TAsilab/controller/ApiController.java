@@ -89,6 +89,7 @@ public class ApiController {
 		List<JenisPemeriksaanModel> model = jenisPeriksaDb.findAll();
 		for (JenisPemeriksaanModel a:model) {
 			a.setListSupplies(null);
+			a.setListPemeriksaan(null);
 		}
 		response.setMessage("Success");
 		response.setResult(jenisPeriksaDb.findAll());

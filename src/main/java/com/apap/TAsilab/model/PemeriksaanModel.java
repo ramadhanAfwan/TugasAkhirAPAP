@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "pemeriksaan")
 public class PemeriksaanModel implements Serializable {
@@ -32,6 +34,8 @@ public class PemeriksaanModel implements Serializable {
     private long id;
 	
 	@NotNull
+	@JsonFormat
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
     @Column(name = "tanggal_pengajuan", nullable = false)
     private Date tanggalPengajuan;
 	
@@ -41,6 +45,8 @@ public class PemeriksaanModel implements Serializable {
     private long idPasien;
 	
     @Column(name = "tanggal_pemeriksaan", nullable = true)
+    @JsonFormat
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
     private Date tanggalPemeriksaan;
     
     @ManyToOne(fetch = FetchType.LAZY)
