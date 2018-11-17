@@ -13,10 +13,25 @@ import com.apap.TAsilab.repository.LabSuppliesDB;
 @Transactional
 public class LabSuppliesServiceImpl implements LabSuppliesService{
 	@Autowired
-	LabSuppliesDB labSuppliesDb;
+
+	private LabSuppliesDB LabSuppliesDb;
+	
 	@Override
-	public List<LabSuppliesModel> getAllSupplies() {
-		return labSuppliesDb.findAll();
+	public List<LabSuppliesModel> findLabSuppliesByJenis(String jenis) {
+		// TODO Auto-generated method stub
+		return LabSuppliesDb.findByJenis(jenis);
+	}
+
+	@Override
+	public List<LabSuppliesModel> getListSupplies() {
+		// TODO Auto-generated method stub
+		return LabSuppliesDb.findAll();
+	}
+
+	@Override
+	public void addSupplies(LabSuppliesModel labSup) {
+		// TODO Auto-generated method stub
+		LabSuppliesDb.save(labSup);
 	}
 
 }
