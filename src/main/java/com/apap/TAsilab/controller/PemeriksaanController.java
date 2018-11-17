@@ -49,25 +49,8 @@ public class PemeriksaanController {
 		return "ubah-status";
 	}
 	
-	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.POST)
-	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, @ModelAttribute PemeriksaanModel statusUbah, Model model) {
-		
-		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
-		
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		
-		pemeriksaan.setTanggalPemeriksaan(date);
-		pemeriksaan.setHasil(statusUbah.getHasil());
-
-		JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
-		List<LabSuppliesModel> lab = jenisPemeriksaan.getListSupplies();
-		for(LabSuppliesModel labS: lab  ) {
-			labS.setJumlah(labS.getJumlah()-1);
-		}
-		
-		model.addAttribute("title", "Ubah Status");
-		model.addAttribute("message", true);
-		model.addAttribute("pemeriksaan", pemeriksaan);
+	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.POST)
+	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel statusUbah, Model model) {
 		return "ubah-status";
 	}
 }

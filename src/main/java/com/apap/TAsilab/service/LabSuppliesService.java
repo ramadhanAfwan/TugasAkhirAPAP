@@ -7,4 +7,6 @@ public interface LabSuppliesService {
 	List<LabSuppliesModel> findLabSuppliesByJenis(String jenis);
 	List<LabSuppliesModel> getListSupplies();
 	void addSupplies(LabSuppliesModel labSup);
+	LabSuppliesModel findById(long id);
+	void updateLabSupplies(LabSuppliesModel labSupplies);
 }
