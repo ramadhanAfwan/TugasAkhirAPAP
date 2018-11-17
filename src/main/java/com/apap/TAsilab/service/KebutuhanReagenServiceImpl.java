@@ -11,4 +11,6 @@ import com.apap.TAsilab.repository.KebutuhanReagenDB;
 public class KebutuhanReagenServiceImpl implements KebutuhanReagenService {
 	@Autowired
 	private KebutuhanReagenDB kebutuhanReagenDB;
+	
+	
 }

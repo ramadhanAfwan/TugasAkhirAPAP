@@ -13,6 +13,7 @@ import com.apap.TAsilab.repository.LabSuppliesDB;
 @Transactional
 public class LabSuppliesServiceImpl implements LabSuppliesService{
 	@Autowired
+
 	private LabSuppliesDB LabSuppliesDb;
 	
 	@Override
@@ -32,6 +33,5 @@ public class LabSuppliesServiceImpl implements LabSuppliesService{
 		// TODO Auto-generated method stub
 		LabSuppliesDb.save(labSup);
 	}
-	
 
 }

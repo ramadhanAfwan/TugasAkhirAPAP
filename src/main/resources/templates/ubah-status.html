@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{components/BasePage :: basepage}">
+<head>
+		<title>Ubah Pemeriksaan</title>
+	</head>
+	<body>
+	<div id="Content" class="container-full-bg">
+		<div class="container">
+			<div class ="row">
+			<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
+					<div class="row">
+						<div class="col-lg-8" style="text-align:center">id_pasien</div>
+						<div class="col-lg-4">
+							<input type="text" name="id_pasien" disabled>
+						</div>
+					</div>	
+					<br>
+					<div class="row">
+						<div class="col-lg-8" style="text-align:center">Tanggal_Permintaan</div>
+						<div class="col-lg-4">
+							<input type="text" name="tanggal_permintaan">
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-lg-8" style="text-align:center">Status</div>
+						<div class="col-md-4" style="text-align:center">
+							<select name="id">
+								<option value="Menunggu">Menunggu</option>
+								<option value="Diproses">Diproses</option>
+								<option value="Selesai">Selesai</option>
+							</select>
+						</div>
+					</div>
+					<br>	
+					<div class="row">
+						<div class="col-md-12" style="text-align:center">
+							<button type="submit" class="btn btn-primary">Simpan</button>
+						</div>
+					</div>
+			</form>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
