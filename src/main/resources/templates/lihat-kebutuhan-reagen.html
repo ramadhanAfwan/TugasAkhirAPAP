@@ -1,9 +1,41 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Kebutuhan Reagen</title>
+	</head>
+	<body>
+	<div id="Content" class="container-full-bg">
+		<br>
+		<hr>
+		<div class="container">
+			<h2 class="card-header" style="text-align:center">Kebutuhan Reagen</h2>
+			<br>
+			<div class="container vertical-center" style="padding-top:32px;">
+		        <div class="table-responsive table">
+		        	<table class="table table-hover" id="myTable">
+		        		<thead>		        	
+		        			<th>Id Reagen</th>
+							<th>Jumlah Reagen</th>
+							<th>Status Reagen</th>
+							<th>Tanggal Perubahan Status</th>
+		        		</thead>
+		        		<tbody>
+		     			<tr th:each="reagen : *{listKebutuhanReagen}">
+							<td th:text="${reagen.id}"></td>
+							<td th:text="${reagen.jumlah}"></td>
+							<td th:text="${status}"></td>
+							<td th:text="${reagen.tanggalUpdate}"></td>
+							<td>
+								<form id="update" th:action="@{/lab/kebutuhan/ubah} + ${reagen.id}" method="GET">
+									<button id="updateButton" class="btn btn-danger" type="submit">Update</button>	
+								</form>
+							</td>
+						</tr>
+		     		</tbody>
+		        	</table>
+		        </div>
+		    </div>
+		</div>
+	</div>
+	</body>
 </html>
