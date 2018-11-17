@@ -20,7 +20,7 @@ public class PageController {
 	
 	@RequestMapping("/")
 	public String home() {
-		return "home1";
+		return "home";
 	}
 
 	@RequestMapping(value = "/pemeriksaan/view/{id}", method=RequestMethod.GET)
