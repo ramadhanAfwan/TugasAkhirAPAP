@@ -31,7 +31,7 @@ public class PemeriksaanController {
 	
 	
 	@RequestMapping(value = "/lab/pemeriksaan/permintaan", method = RequestMethod.GET)
-	public String viewAllJabatan(Model model) {
+	public String viewAllPemeriksaan(Model model) {
 		
 		List<PemeriksaanModel> listPemeriksaan = pemeriksaanService.findAll();
 		
@@ -40,8 +40,8 @@ public class PemeriksaanController {
 		return "lihat-daftar-pemeriksaan";
 	}
 	
-	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.GET)
-	public String ubahStatus(@RequestParam(value= "id") Long idPemeriksaan, Model model) {
+	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.GET)
+	public String ubahStatus(@PathVariable(value= "id") Long idPemeriksaan, Model model) {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
 		model.addAttribute("pemeriksaan", pemeriksaan);
 		model.addAttribute("title", "Ubah Status");
@@ -49,8 +49,32 @@ public class PemeriksaanController {
 		return "ubah-status";
 	}
 	
-	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.POST)
-	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel statusUbah, Model model) {
-		return "ubah-status";
+	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.POST)
+	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, @ModelAttribute PemeriksaanModel ubahStatus, Model model) {
+		
+		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
+		JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
+		List<LabSuppliesModel> lab = jenisPemeriksaan.getListSupplies();
+		
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		if(pemeriksaan.getStatus()==0) {
+			if(lab.size()==0) {
+				pemeriksaan.setStatus(ubahStatus.getStatus());
+			}
+			else {
+				pemeriksaan.setTanggalPemeriksaan(date);
+				pemeriksaan.setStatus(ubahStatus.getStatus());
+				for(LabSuppliesModel labS: lab  ) {
+					labS.setJumlah(labS.getJumlah()-1);
+				}
+			}
+		}
+		else {
+			pemeriksaan.setStatus(ubahStatus.getStatus());
+		}
+		
+		model.addAttribute("title", "Daftar Pemeriksaan");
+		model.addAttribute("pemeriksaan", pemeriksaan);
+		return "lihat-daftar-pemeriksaan";
 	}
 }

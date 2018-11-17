@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{components/BasePage :: basepage}">
-	<head>
-		<title>View Pemeriksaan</title>
-	</head>
-	<body>
+<head>
+    <object th:include="components/BasePage :: title" th:remove="tag"></object>
+</head>
+<body>
 	<div id="Content" class="container-full-bg">
 		<br>
 		<h1>Data Pemeriksaan</h1>
@@ -18,7 +18,6 @@
 		        			<th>Id Pasien</th>
 							<th>Tanggal Permintaan</th>
 							<th>Status</th>
-							<th></th>
 		        		</thead>
 		        		<tbody>
 		     			<tr th:each="pemeriksaan : *{listPemeriksaan}">
@@ -26,9 +25,15 @@
 							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
 							<td th:text="${pemeriksaan.hasil}"></td>
 							<td>
-								<form th:action="@{/lab/pemeriksaan/}" method="GET">
+								<form id="update" th:action="@{/lab/pemeriksaan/} + ${pemeriksaan.id}" method="GET">
+									<button id="updateButton" class="btn btn-danger" type="submit">Update</button>	
+								</form>
+							</td>
+							<td>
+								<form id="kirim">
 									<input type="hidden" name="id" th:value="${pemeriksaan.idPasien}">
-									<button class="btn btn-primary" type="submit">Update</button>	
+									<input type="hidden" name="status" th:value="${pemeriksaan.status}">
+									<button id="kirimButton" class="btn btn-danger" type="submit">Kirim</button>	
 								</form>
 							</td>
 						</tr>
@@ -36,14 +41,7 @@
 		        	</table>
 		        </div>
 		    </div>
-		    <script type="text/javascript">
-		    	$(document).ready(function(e){
-		    		$(myTable).DataTable()
-		    	});
-		    </script>
-	
 		</div>
-	
 	</div>
 	</body>
 </html>
