@@ -45,7 +45,6 @@ public class PemeriksaanController {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
 		model.addAttribute("pemeriksaan", pemeriksaan);
 		model.addAttribute("title", "Ubah Status");
-		model.addAttribute("message", true);
 		return "ubah-status";
 	}
 	
@@ -59,14 +58,15 @@ public class PemeriksaanController {
 		Date date = new Date(Calendar.getInstance().getTime().getTime());
 		if(pemeriksaan.getStatus()==0) {
 			if(lab.size()==0) {
-				pemeriksaan.setStatus(ubahStatus.getStatus());
+				pemeriksaan.setStatus(0);
 			}
 			else {
-				pemeriksaan.setTanggalPemeriksaan(date);
-				pemeriksaan.setStatus(ubahStatus.getStatus());
 				for(LabSuppliesModel labS: lab  ) {
 					labS.setJumlah(labS.getJumlah()-1);
 				}
+				pemeriksaan.setTanggalPemeriksaan(date);
+				pemeriksaan.setStatus(ubahStatus.getStatus());
+				
 			}
 		}
 		else {
