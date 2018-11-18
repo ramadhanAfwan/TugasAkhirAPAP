@@ -2,46 +2,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{components/BasePage :: basepage}">
 <head>
     <object th:include="components/BasePage :: title" th:remove="tag"></object>
-</head>	
-
+</head>
 <body>
-	<div id="Content" class="container-full-bg">
-		<div class="container">
-			<div class ="row">
-			<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
-					<div class="row">
-						<div class="col-lg-8" style="text-align:center">id_pasien</div>
-						<div class="col-lg-4">
-							<input type="text" name="id_pasien" disabled>
-						</div>
-					</div>	
-					<br>
-					<div class="row">
-						<div class="col-lg-8" style="text-align:center">Tanggal_Permintaan</div>
-						<div class="col-lg-4">
-							<input type="text" name="tanggal_permintaan">
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-lg-8" style="text-align:center">Status</div>
-						<div class="col-md-4" style="text-align:center">
-							<select name="id">
-								<option value="Menunggu">Menunggu</option>
-								<option value="Diproses">Diproses</option>
-								<option value="Selesai">Selesai</option>
-							</select>
-						</div>
-					</div>
-					<br>	
-					<div class="row">
-						<div class="col-md-12" style="text-align:center">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-						</div>
-					</div>
-			</form>
-			</div>
-		</div>
-		</div>
-	</body>
+<div id="Content" class="container-full-bg">
+	<div class="jumbotron jumbotron-fluid" style="background-image: url('https://www.freewordpressheaders.com/wp-content/gallery/laboratory/laboratory-liquid-glass-beakers-website-header.jpg'); background-size: cover;">
+		  <div class="container">
+		    <h1>Ubah Permintaan Pemeriksaan</h1>
+		    <hr class="my-4">      
+		    <p>Layanan laboratorium Rumah Sakit Anaperancis</p>
+		  </div>
+	</div>
+    <div class="container vertical-center">
+        <div class="card my-5">
+        	<form th:action="@{/lab/pemeriksaan}" th:object="${pemeriksaan}" method="POST">
+        		<div class="card-body">
+        			<div class="form-group">
+        				<label for="jenis">Tanggal Pemeriksaan: *</label>
+        				<input type="date" name="tanggalPemeriksaan" th:value="${old.tanggalPemeriksaan}" class="form-control">
+    					<input type="hidden" name="id" th:value="${old.id}" class="form-control">
+    					<input type="hidden" name="tanggalPengajuan" th:value="${old.tanggalPengajuan}" class="form-control"/>
+    					<input type="hidden" name="idPasien" th:value="${old.idPasien}" class="form-control"/>
+        				<input type="hidden" name="jenisPemeriksaan" th:value="${old.jenisPemeriksaan.id}" class="form-control"/>
+        				<input type="hidden" name="jadwalJaga" th:value="${old.jadwalJaga.id}" class="form-control"/>
+        				<input type="hidden" name="hasil" class="form-control"/>
+        			</div>
+        			<div class="form-group">
+        				<label for="nama">Status: *</label>
+        				<select name="status">
+        					<option th:value= 0 > Menunggu Persetujuan
+        					<option th:value= 1 > Diproses
+        					<option th:value= 2 > Selesai
+        				</select>
+        			</div>
+        			<div th:if="${status==1}" class="form-group">
+        				<label for="jumlah">Hasil: *</label>
+        				<input type="text" name="hasil" th:value="${old.hasil}" class="form-control" required>
+        			</div>
+        			<button type="submit" class="btn btn-primary">Submit</button>
+ 				</div>
+ 			</form>
+        </div>
+    </div>
+</div>
+</body>
 </html>

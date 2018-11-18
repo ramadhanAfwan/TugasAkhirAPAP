@@ -9,4 +9,5 @@ public interface LabSuppliesService {
 	void addSupplies(LabSuppliesModel labSup);
 	LabSuppliesModel findById(long id);
 	void updateLabSupplies(LabSuppliesModel labSupplies);
+	boolean cekLabSupplies(List<LabSuppliesModel> list);
 }

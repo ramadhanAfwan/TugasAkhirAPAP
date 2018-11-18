@@ -17,6 +17,7 @@ import com.apap.TAsilab.model.JenisPemeriksaanModel;
 import com.apap.TAsilab.model.LabSuppliesModel;
 import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.service.JenisPemeriksaanService;
+import com.apap.TAsilab.service.LabSuppliesService;
 import com.apap.TAsilab.service.PemeriksaanService;
 
 
@@ -28,6 +29,9 @@ public class PemeriksaanController {
 	
 	@Autowired
 	JenisPemeriksaanService jenisPemeriksaanService;
+	
+	@Autowired
+	LabSuppliesService labService;
 	
 	
 	@RequestMapping(value = "/lab/pemeriksaan/permintaan", method = RequestMethod.GET)
@@ -43,38 +47,44 @@ public class PemeriksaanController {
 	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.GET)
 	public String ubahStatus(@PathVariable(value= "id") Long idPemeriksaan, Model model) {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
-		model.addAttribute("pemeriksaan", pemeriksaan);
-		model.addAttribute("title", "Ubah Status");
-		model.addAttribute("message", true);
-		return "ubah-status";
-	}
-	
-	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.POST)
-	public String ubahStatusSubmit(@PathVariable(value= "id") Long idPemeriksaan, @ModelAttribute PemeriksaanModel ubahStatus, Model model) {
-		
-		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
-		JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
-		List<LabSuppliesModel> lab = jenisPemeriksaan.getListSupplies();
-		
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		if(pemeriksaan.getStatus()==0) {
-			if(lab.size()==0) {
-				pemeriksaan.setStatus(ubahStatus.getStatus());
-			}
-			else {
-				pemeriksaan.setTanggalPemeriksaan(date);
-				pemeriksaan.setStatus(ubahStatus.getStatus());
-				for(LabSuppliesModel labS: lab  ) {
-					labS.setJumlah(labS.getJumlah()-1);
-				}
-			}
+		// kondisi perubahan status dari proses menjadi selesai
+		if(pemeriksaan.getStatus()==1) {
+			// tambahin kondisi buat nampilin input hasil
+			model.addAttribute("status", pemeriksaan.getStatus());
+			model.addAttribute("old", pemeriksaan);
 		}
 		else {
-			pemeriksaan.setStatus(ubahStatus.getStatus());
+			JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
+			List<LabSuppliesModel> lab = jenisPemeriksaan.getListSupplies();
+			boolean stokAda = labService.cekLabSupplies(lab);
+			if(stokAda==false) {
+				model.addAttribute("msg", "Stok lab habis, Status tidak dapat dirubah");
+				return "success-page";
+			}
 		}
-		
-		model.addAttribute("title", "Daftar Pemeriksaan");
-		model.addAttribute("pemeriksaan", pemeriksaan);
-		return "lihat-daftar-pemeriksaan";
+		model.addAttribute("old", pemeriksaan);
+		return "ubah-status";
+	}
+	/*
+	 * 
+	 * Revisi buat afwan
+	 * Gua benerin supaya fitur gua bisa jalan
+	 */
+	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.POST)
+	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel pemeriksaan, Model model) {
+		// Kita bikin simple aja napah
+		// Gua bikin implementasi di service pemeriksaan
+		// Jangan lupa dipelajarin
+		/*System.out.println(pemeriksaan.getId());
+		System.out.println(pemeriksaan.getTanggalPemeriksaan());
+		System.out.println(pemeriksaan.getTanggalPengajuan());
+		System.out.println(pemeriksaan.getIdPasien());
+		System.out.println(pemeriksaan.getStatus());
+		System.out.println(pemeriksaan.getJadwalJaga().getId());
+		System.out.println(pemeriksaan.getJenisPemeriksaan().getId());
+		System.out.println(pemeriksaan.getHasil());*/
+		pemeriksaanService.updatePemeriksaan(pemeriksaan);
+		model.addAttribute("msg", "Status Pemeriksaan berhasil diubah");
+		return "success-page";
 	}
 }

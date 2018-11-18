@@ -18,18 +18,18 @@
 		        			<th>Id Pasien</th>
 							<th>Tanggal Permintaan</th>
 							<th>Status</th>
+							<th></th>
+							<th></th>
 		        		</thead>
 		        		<tbody>
 		     			<tr th:each="pemeriksaan : *{listPemeriksaan}">
 							<td th:text="${pemeriksaan.idPasien}"></td>
 							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
-							<td th:text="${pemeriksaan.hasil}"></td>
-							<td>
-								<form id="update" th:action="@{/lab/pemeriksaan/} + ${pemeriksaan.id}" method="GET">
-									<button id="updateButton" class="btn btn-danger" type="submit">Update</button>	
-								</form>
-							</td>
-							<td>
+							<td th:if="${pemeriksaan.status==0}" th:text="'Menunggu'+' Persetujuan'"></td>
+							<td th:if="${pemeriksaan.status==1}" th:text="Diproses"></td>
+							<td th:if="${pemeriksaan.status==2}" th:text="Selesai"></td>
+							<td><a th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
+							<td th:if="${pemeriksaan.status==2}">
 								<form id="kirim">
 									<input type="hidden" name="id" th:value="${pemeriksaan.idPasien}">
 									<input type="hidden" name="status" th:value="${pemeriksaan.status}">
