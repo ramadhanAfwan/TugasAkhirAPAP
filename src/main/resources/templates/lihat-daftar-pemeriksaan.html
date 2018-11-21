@@ -21,7 +21,7 @@
 		        		</thead>
 		        		<tbody>
 		     			<tr th:each="pemeriksaan : *{listPemeriksaan}">
-							<td th:text="${mapPasien.get()}"></td>
+							<td th:text="${mapPasien[__pemeriksaan.id__].nama}"></td>
 							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
 							<td th:if="${pemeriksaan.status==0}" th:text="'Menunggu'+' Persetujuan'"></td>
 							<td th:if="${pemeriksaan.status==1}" th:text="Diproses"></td>

@@ -7,24 +7,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PasienDetail {
-	@JsonProperty("id")
 	private Long id;
-	
-	@JsonProperty("nama")
 	private String nama;
-	
-	@JsonProperty("tanggalRujukan")
 	private Date tanggalRujukan;
-	
-	@JsonProperty("poliRujukan")
 	private String poliRujukan;
+	private StatusPasien statusPasien;
 	
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long i) {
+		this.id = i;
 	}
 
 	public String getNama() {
@@ -34,5 +28,31 @@ public class PasienDetail {
 	public void setNama(String nama) {
 		this.nama = nama;
 	}
+
+	public Date getTanggalRujukan() {
+		return tanggalRujukan;
+	}
+
+	public void setTanggalRujukan(Date tanggalRujukan) {
+		this.tanggalRujukan = tanggalRujukan;
+	}
+
+	public String getPoliRujukan() {
+		return poliRujukan;
+	}
+
+	public void setPoliRujukan(String poliRujukan) {
+		this.poliRujukan = poliRujukan;
+	}
+
+	public StatusPasien getStatusPasien() {
+		return statusPasien;
+	}
+
+	public void setStatusPasien(StatusPasien statusPasien) {
+		this.statusPasien = statusPasien;
+	}
+
+	
 	
 }

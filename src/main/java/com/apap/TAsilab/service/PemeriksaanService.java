@@ -14,8 +14,10 @@ public interface PemeriksaanService {
 	PemeriksaanModel findPemeriksaanById(long id);
 	List<PemeriksaanModel> findAll();
 	void updatePemeriksaan(PemeriksaanModel pemeriksaan);
-	PasienDetail getPasien(long idPasien) throws ParseException;
-	Map<Long, PasienDetail> getPasienPemeriksaan() throws ParseException;
+//	String getRest(String url) throws ParseException;
+//	PasienDetail parsePasien(String data) throws ParseException;
+	PasienDetail getPasien(int idPasien) throws ParseException;
+	Map<Integer, PasienDetail> getPatient() throws ParseException;
 	
 	
 }

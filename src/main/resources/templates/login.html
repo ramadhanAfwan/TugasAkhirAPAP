@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<object th:include="components/basepage :: metas" th:remove="tag"></object>
+    <object th:include="components/basepage :: css" th:remove="tag"></object>
+    <object th:include="components/basepage :: js" th:remove="tag"></object>
+</head>
+<body>
+<div class="bg-home">
+	<div class="row">
+		<div class="col-sm-6 offset-sm-3 padding-top">
+			<div class="card-login">
+				<h2 class="title">Selamat Datang di Sistem Informasi Rawat Inap</h2>
+				<div th:if="${param.error}" style="text-align:center">
+					<span style="color:red; ">Invalid username or password.</span>
+				</div>
+				<form th:action="@{/login}" method="POST">
+				<div class="row" style="padding: 20px">
+					<div class="col-sm-10 offset-sm-1">
+				    	<div class="form group">
+				    		<input class="form-control login-input input-sm" placeholder="Username" type="text" name="username"/>
+						</div>
+				    </div>
+					<div class="col-sm-10 offset-sm-1" style="padding-top: 15px">
+						<div class="form group">
+				          	<input class="form-control login-input input-sm" placeholder="Password" type="password" name="password"/>
+						</div>
+				    </div>
+				    <div style="padding-top:30px" class="col-sm-10 offset-sm-1">
+				        <button type="submit" class="btn btn-success btn-block btn-lg">Log In</button>
+				    </div>
+				    <div style="padding-top:30px;text-align:center;color:#666" class="col-sm-10 offset-sm-1">
+				    	Klik <a th:href="@{user/tambah}">disini</a> untuk menambah user baru.
+				    </div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- 
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <div th:if="${param.error}">
+				<span style="color:red">Invalid username or password.</span>
+			</div>
+            <form th:action="@{/login}" method="POST" class="form-signin">
+              <div class="form-label-group">
+                <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputUsername">Username</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+              <button class="btn btn-md btn-primary btn-block text-uppercase" type="submit">Sign in</button>    
+              <div>
+              	<p>Belum punya akun? <a th:href="@{/user/tambah}">Daftar di sini!</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!--
+<body>
+	<!-- <div id="Content" class="container-full-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header">
+							Log In
+						</div>
+						<div class="card-body">
+							<div th:if="${param.error}">
+								<span style="color:red">Invalid username or password.</span>
+							</div>
+							<form th:action="@{/login}" method="POST">
+								<div class="row form-group">
+									<label class="col-sm-3">User Name</label>
+									<input class="col-sm-9 form-control input-sm" type="text" name="username"/>
+								</div>
+								<div class="row form-group">
+									<label class="col-sm-3">Password</label>
+									<input class="col-sm-9 form-control input-sm" type="password" name="password"/>
+								</div>
+								<div>
+									<button type="submit" class="btn btn-primary">Sign In</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>-->
+</html>

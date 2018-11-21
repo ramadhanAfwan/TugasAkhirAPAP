@@ -25,7 +25,6 @@ import com.apap.TAsilab.repository.PemeriksaanDB;
 import com.apap.TAsilab.rest.BaseResponse;
 import com.apap.TAsilab.rest.HasilLab;
 import com.apap.TAsilab.rest.PasienDetail;
-import com.apap.TAsilab.rest.Setting;
 
 /**
  * 

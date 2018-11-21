@@ -18,7 +18,7 @@ import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.repository.JenisPemeriksaanDB;
 import com.apap.TAsilab.repository.PemeriksaanDB;
 import com.apap.TAsilab.rest.PasienDetail;
-import com.apap.TAsilab.rest.Setting;
+import com.apap.TAsilab.rest.StatusPasien;
 
 
 @Service
@@ -33,6 +33,57 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 	
 	@Autowired
 	private JenisPemeriksaanDB jenisPemeriksaanDb;
+	
+	@Override
+	public PasienDetail getPasien(int idPasien) throws ParseException {
+		PasienDetail pasien = new PasienDetail();
+		JSONParser parser = new JSONParser();
+		String response = restTemplate.getForObject("http://si-appointment.herokuapp.com/api/getPasien/"+idPasien, String.class);
+        System.out.println(response);
+        JSONObject json = (JSONObject) parser.parse(response);
+        JSONObject result = (JSONObject) json.get("result");
+        String nama = (String) result.get("nama");
+        long id_pasien = (long) result.get("id");
+        pasien.setId(id_pasien);
+        pasien.setNama(nama);
+        
+        return pasien;
+	}
+	
+	@Override
+	public Map<Integer, PasienDetail> getPatient() throws ParseException {
+		Map<Integer, PasienDetail> mapPasien = new HashMap<Integer, PasienDetail>();
+		List<PemeriksaanModel> listPemeriksaan = pemeriksaanDb.findAll();
+		for (PemeriksaanModel pemeriksaan : listPemeriksaan){
+			PasienDetail pasien = this.getPasien((int)pemeriksaan.getIdPasien());
+			mapPasien.put((int) pemeriksaan.getJenisPemeriksaan().getId(), pasien);
+		}
+		return mapPasien;
+	}
+	
+//	@Override
+//	public String getRest(String url) throws ParseException{
+//		String response = restTemplate.getForObject(url, String.class);
+//        return response;
+//	}
+//	
+//	@Override
+//	public PasienDetail parsePasien(String data) throws ParseException {
+//		JSONParser parser = new JSONParser();
+//		JSONObject json = (JSONObject) parser.parse(data);
+//		JSONObject pasienJson = (JSONObject) json.get("result");
+//		System.out.println(pasienJson);
+//		JSONObject statusPasien = (JSONObject) pasienJson.get("statusPasien");
+//		StatusPasien status = new StatusPasien();
+//		status.setId((int)statusPasien.get("id"));
+//		status.setJenis((String) statusPasien.get("jenis"));
+//		PasienDetail pasien = new PasienDetail();
+//		pasien.setId((int)pasienJson.get("id"));
+//		pasien.setNama((String) pasienJson.get("nama"));
+//		pasien.setStatusPasien(status);
+//		System.out.println(pasien.getNama());
+//		return pasien;
+//	}
 	
 	@Override
 	public PemeriksaanModel findPemeriksaanById(long id) {
@@ -55,31 +106,5 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 		pemeriksaanDb.save(pemeriksaan);
 	}
 
-	@Override
-	public PasienDetail getPasien(long idPasien) throws ParseException {
-		PasienDetail pasien = new PasienDetail();
-		
-		JSONParser parser = new JSONParser();
-		String path = Setting.appointmentUrl+"{"+idPasien+"}";
-		String jsonParse = (String) restTemplate.getForObject(path, Object.class);
-		JSONObject json = (JSONObject) parser.parse(jsonParse);
-		JSONObject result = (JSONObject) parser.parse((String) json.get("result"));
-		String namaPasien = (String) result.get("nama");
-		Long id = (Long) result.get("id");
-		
-		pasien.setId(id);
-		pasien.setNama(namaPasien);
-    	return pasien;
-	}
 
-	@Override
-	public Map<Long, PasienDetail> getPasienPemeriksaan() throws ParseException {
-		List<PemeriksaanModel> pemeriksaan = pemeriksaanDb.findAll();
-		Map<Long, PasienDetail> pasienPemeriksaan = new HashMap<Long,PasienDetail>();
-		for(PemeriksaanModel pem : pemeriksaan) {
-			PasienDetail pasien = this.getPasien(pem.getIdPasien());
-			pasienPemeriksaan.put(pem.getIdPasien(),pasien);
-		}
-		return pasienPemeriksaan;
-	}
 }

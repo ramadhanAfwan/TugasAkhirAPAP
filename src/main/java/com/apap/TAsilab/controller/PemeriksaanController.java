@@ -1,5 +1,6 @@
 package com.apap.TAsilab.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
 import java.util.List;
@@ -23,6 +24,8 @@ import com.apap.TAsilab.rest.PasienDetail;
 import com.apap.TAsilab.service.JenisPemeriksaanService;
 import com.apap.TAsilab.service.LabSuppliesService;
 import com.apap.TAsilab.service.PemeriksaanService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Controller
@@ -37,20 +40,36 @@ public class PemeriksaanController {
 	@Autowired
 	LabSuppliesService labService;
 	
+	@Autowired
+	RestTemplate restTemplate;
+	
+	
 	@RequestMapping(value = "/lab/pemeriksaan/permintaan", method = RequestMethod.GET)
 	public String viewAllPemeriksaan(Model model) throws Exception {
-		
-		Map<Long,PasienDetail> mapPasien = pemeriksaanService.getPasienPemeriksaan();
-		
 		List<PemeriksaanModel> listPemeriksaan = pemeriksaanService.findAll();
+		Map<Integer, PasienDetail> mapPasien = pemeriksaanService.getPatient();
+		
+				
+//		List<PasienDetail> listDataPasien = new ArrayList<PasienDetail>();
+		
+//		for(PemeriksaanModel pem : listPemeriksaan) {
+//			Long pasienId = pem.getIdPasien();
+//			String path = "http://si-appointment.herokuapp.com/api/getPasien/"+pasienId;
+//			String response = restTemplate.getForEntity(path, String.class).getBody();
+//			ObjectMapper mapper = new ObjectMapper();
+//			JsonNode node = mapper.readTree(response);
+//			JsonNode result = node.get("result");
+//			PasienDetail pasien = mapper.treeToValue(result, PasienDetail.class);
+//			listDataPasien.add(pasien);
+//		}
+		
 		if(listPemeriksaan.size()==0) {
 			model.addAttribute("header", "Tidak ada permintaan pemeriksaan");
 		}
 		else {
-			model.addAttribute("mapPasien",mapPasien);
-			model.addAttribute("pasien",new PasienDetail());
-			model.addAttribute("header", "Daftar Permintaan Pemeriksaan");
 			model.addAttribute("listPemeriksaan", listPemeriksaan);
+			model.addAttribute("mapPasien", mapPasien);
+			model.addAttribute("header", "Daftar Permintaan Pemeriksaan");
 			
 		}
 		model.addAttribute("title", "Daftar Pemeriksaan");
