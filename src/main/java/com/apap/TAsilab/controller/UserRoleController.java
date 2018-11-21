@@ -22,12 +22,12 @@ public class UserRoleController {
 	@Autowired
 	private UserRoleService userService;
 	
-	@RequestMapping(value = "/tambah")
+	@RequestMapping(value = "/tambah", method = RequestMethod.GET)
 	private String addUser() {
 		return "add-user";
 	}
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	private String addUserSubmit(@ModelAttribute UserRoleModel user, RedirectAttributes redirectAttrs) {
+	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
+	private String addUserSubmit(@ModelAttribute UserRoleModel user) {
 		String message = "";
 		if(validatePassword(user.getPassword())) {
 			userService.addUser(user);
@@ -36,8 +36,8 @@ public class UserRoleController {
 		else {
 			message = "Password tidak sesuai ketentuan";
 		}
-		redirectAttrs.addFlashAttribute("message", message);
-		return "redirect:/";
+		//redirectAttrs.addFlashAttribute("message", message);
+		return "login";
 	}
 	
 	@RequestMapping("/updatePassword")
