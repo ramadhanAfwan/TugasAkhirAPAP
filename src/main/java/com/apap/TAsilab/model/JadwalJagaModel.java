@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "jadwal_jaga")
 public class JadwalJagaModel implements Serializable {
@@ -88,11 +90,11 @@ public class JadwalJagaModel implements Serializable {
 	public void setIdStaff(long idStaff) {
 		this.idStaff = idStaff;
 	}
-
+	@JsonIgnore
 	public List<PemeriksaanModel> getListPemeriksaan() {
 		return listPemeriksaan;
 	}
-
+	@JsonIgnore
 	public void setListPemeriksaan(List<PemeriksaanModel> listPemeriksaan) {
 		this.listPemeriksaan = listPemeriksaan;
 	}

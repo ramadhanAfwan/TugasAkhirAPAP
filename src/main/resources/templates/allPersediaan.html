@@ -27,6 +27,7 @@
         			<th>Nama</th>
         			<th>Jumlah</th>
         			<th>Deskripsi</th>
+        			<th></th>
         		</thead>
         		<tbody>
      			<tr  th:each  = "supplies : ${allSupplies}" >
@@ -35,6 +36,7 @@
      				<td th:text="${supplies.nama}"></td>
      				<td th:text="${supplies.jumlah}"></td>
      				<td th:text="${supplies.deskripsi}"></td>
+     				<td><a th:href="@{'/lab/stok/ubah/' +${supplies.id}}" class="button">Update</a></td>
      			</tr>
      		</tbody>
         	</table>
