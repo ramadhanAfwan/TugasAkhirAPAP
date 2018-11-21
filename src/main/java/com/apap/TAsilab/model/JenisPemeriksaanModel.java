@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "jenis_pemeriksaan")
 public class JenisPemeriksaanModel implements Serializable {
@@ -59,15 +61,15 @@ public class JenisPemeriksaanModel implements Serializable {
 	public void setNama(String nama) {
 		this.nama = nama;
 	}
-
+	
+	@JsonIgnore
 	public List<LabSuppliesModel> getListSupplies() {
 		return listSupplies;
 	}
-
 	public void setListSupplies(List<LabSuppliesModel> listSupplies) {
 		this.listSupplies = listSupplies;
 	}
-
+	@JsonIgnore
 	public List<PemeriksaanModel> getListPemeriksaan() {
 		return listPemeriksaan;
 	}

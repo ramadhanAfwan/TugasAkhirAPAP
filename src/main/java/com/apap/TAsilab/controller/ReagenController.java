@@ -25,16 +25,23 @@ public class ReagenController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private String addUserSubmit(@ModelAttribute KebutuhanReagenModel reagen, Model model) {
 		List<KebutuhanReagenModel> listKebutuhanReagen = kebutuhanReagenService.findAll();
-		String status = "";
-		if(reagen.getStatus()==0) {
-			status = "aktif/belum beli";
+		if(listKebutuhanReagen.size()==0) {
+			model.addAttribute("header", "Perencanaan Kebutuhan Reagen Belum Diajukan");
 		}
 		else {
-			status = "tidak aktif/telah dibeli";
+			String status = "";
+			if(reagen.getStatus()==0) {
+				status = "aktif/belum beli";
+			}
+			else {
+				status = "tidak aktif/telah dibeli";
+			}
+			model.addAttribute("header", "Data Perencanaan Kebutuhan Reagen");
+			model.addAttribute("status", status);
+			model.addAttribute("listKebutuhanReagen", listKebutuhanReagen);
 		}
+		
 		model.addAttribute("title", "Kebutuhan Reagen");
-		model.addAttribute("status", status);
-		model.addAttribute("listKebutuhanReagen", listKebutuhanReagen);
 		return "lihat-kebutuhan-reagen";
 	}
 	

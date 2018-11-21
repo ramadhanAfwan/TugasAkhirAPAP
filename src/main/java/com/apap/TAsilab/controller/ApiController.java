@@ -3,11 +3,16 @@ package com.apap.TAsilab.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.apap.TAsilab.model.JadwalJagaModel;
 import com.apap.TAsilab.model.JenisPemeriksaanModel;
@@ -18,6 +23,9 @@ import com.apap.TAsilab.repository.JenisPemeriksaanDB;
 import com.apap.TAsilab.repository.KebutuhanReagenDB;
 import com.apap.TAsilab.repository.PemeriksaanDB;
 import com.apap.TAsilab.rest.BaseResponse;
+import com.apap.TAsilab.rest.HasilLab;
+import com.apap.TAsilab.rest.PasienDetail;
+import com.apap.TAsilab.rest.Setting;
 
 /**
  * 
@@ -38,11 +46,18 @@ public class ApiController {
 	
 	@Autowired
 	JadwalJagaDB jadwalDb;
+	
+	@Autowired
+	RestTemplate restTemplate;
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 	/*
 	 * API Untuk
 	 * Menerima request pemeriksaan
 	 */
-
 	@PostMapping(value="/lab/pemeriksaan/permintaan")
 	public BaseResponse<PemeriksaanModel> addPermintaanPemeriksaan(@RequestBody PemeriksaanModel pemeriksaanLab, BindingResult bindingResult){
 		BaseResponse<PemeriksaanModel> response = new BaseResponse<PemeriksaanModel>();
@@ -89,6 +104,7 @@ public class ApiController {
 		List<JenisPemeriksaanModel> model = jenisPeriksaDb.findAll();
 		for (JenisPemeriksaanModel a:model) {
 			a.setListSupplies(null);
+			a.setListPemeriksaan(null);
 		}
 		response.setMessage("Success");
 		response.setResult(jenisPeriksaDb.findAll());
@@ -112,4 +128,28 @@ public class ApiController {
 		response.setResult(jadwalDb.findAll());
 		return response;
 	}
+	/*
+	 * Send API to SI - Appointment
+	 * Fitur 10
+	 */
+	@PostMapping(value="/kirim/hasil-lab")
+	public HasilLab addLabResult(@RequestParam (value="id") Long id) {
+		PemeriksaanModel pemeriksaan = pemeriksaanDb.findById(id).get();
+		HasilLab hasil = new HasilLab();
+		PasienDetail pasien = new PasienDetail();
+		pasien.setId(pemeriksaan.getIdPasien());
+		hasil.setJenis(pemeriksaan.getJenisPemeriksaan().getNama());
+		hasil.setHasil(pemeriksaan.getHasil().substring(1));
+		hasil.setTanggalPengajuan(pemeriksaan.getTanggalPengajuan());
+		hasil.setPasien(pasien);
+		try {
+			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/addLabResult", hasil, ResponseEntity.class);
+			return hasil;
+		}
+		catch(Exception e) {
+			pemeriksaanDb.delete(pemeriksaan);
+			return hasil;
+		}
+	}
+	
 }

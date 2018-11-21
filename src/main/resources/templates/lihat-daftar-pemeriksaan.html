@@ -6,33 +6,30 @@
 <body>
 	<div id="Content" class="container-full-bg">
 		<br>
-		<h1>Data Pemeriksaan</h1>
-		<hr>
 		<div class="container">
-			<h2 class="card-header" style="text-align:center">Daftar Pemeriksaan</h2>
+			<h2 class="card-header" th:text="${header}" style="text-align:center"></h2>
 			<br>
 			<div class="container vertical-center" style="padding-top:32px;">
 		        <div class="table-responsive table">
 		        	<table class="table table-hover" id="myTable">
 		        		<thead>
-		        			<th>Id Pasien</th>
+		        			<th>Nama Pasien</th>
 							<th>Tanggal Permintaan</th>
 							<th>Status</th>
+							<th></th>
+							<th></th>
 		        		</thead>
 		        		<tbody>
 		     			<tr th:each="pemeriksaan : *{listPemeriksaan}">
-							<td th:text="${pemeriksaan.idPasien}"></td>
+							<td th:text="${mapPasien.get()}"></td>
 							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
-							<td th:text="${pemeriksaan.hasil}"></td>
-							<td>
-								<form id="update" th:action="@{/lab/pemeriksaan/} + ${pemeriksaan.id}" method="GET">
-									<button id="updateButton" class="btn btn-danger" type="submit">Update</button>	
-								</form>
-							</td>
-							<td>
-								<form id="kirim">
-									<input type="hidden" name="id" th:value="${pemeriksaan.idPasien}">
-									<input type="hidden" name="status" th:value="${pemeriksaan.status}">
+							<td th:if="${pemeriksaan.status==0}" th:text="'Menunggu'+' Persetujuan'"></td>
+							<td th:if="${pemeriksaan.status==1}" th:text="Diproses"></td>
+							<td th:if="${pemeriksaan.status==2}" th:text="Selesai"></td>
+							<td><a th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
+							<td th:if="${pemeriksaan.status==2}">
+								<form th:action="@{/kirim/hasil-lab}" method = "POST">
+									<input type="hidden" name="id" th:value="${pemeriksaan.id}">
 									<button id="kirimButton" class="btn btn-danger" type="submit">Kirim</button>	
 								</form>
 							</td>
