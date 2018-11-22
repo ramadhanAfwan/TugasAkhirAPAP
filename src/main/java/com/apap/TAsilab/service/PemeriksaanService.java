@@ -8,16 +8,16 @@ import org.json.simple.parser.ParseException;
 
 import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.rest.PasienDetail;
+import com.apap.TAsilab.rest.PemeriksaanDetail;
 
 
 public interface PemeriksaanService {
 	PemeriksaanModel findPemeriksaanById(long id);
 	List<PemeriksaanModel> findAll();
 	void updatePemeriksaan(PemeriksaanModel pemeriksaan);
-//	String getRest(String url) throws ParseException;
-//	PasienDetail parsePasien(String data) throws ParseException;
 	PasienDetail getPasien(int idPasien) throws ParseException;
-	Map<Integer, PasienDetail> getPatient() throws ParseException;
+	Map<Long, PasienDetail> getPatient() throws ParseException;
+//	PemeriksaanDetail getPemeriksaan() throws ParseException;
 	
 	
 }

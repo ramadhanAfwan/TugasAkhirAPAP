@@ -24,7 +24,7 @@
 							<td th:text="${reagen.jumlah}"></td>
 							<td th:text="${status}"></td>
 							<td th:text="${reagen.tanggalUpdate}"></td>
-							<td th:if="${reagen.jumlah > 0}">
+							<td>
 								<form id="update" th:action="@{/lab/kebutuhan/ubah} + ${reagen.id}" method="GET">
 									<button id="updateButton" class="btn btn-danger" type="submit">Update</button>	
 								</form>

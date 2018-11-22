@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.TAsilab.model.KebutuhanReagenModel;
-import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.service.KebutuhanReagenService;
 
 @Controller
