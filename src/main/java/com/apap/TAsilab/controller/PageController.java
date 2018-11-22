@@ -11,7 +11,6 @@ import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.service.PemeriksaanService;
 
 
-
 @Controller
 public class PageController {
 	
@@ -21,6 +20,11 @@ public class PageController {
 	@RequestMapping("/")
 	public String home() {
 		return "home";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
 	}
 
 	@RequestMapping(value = "/pemeriksaan/view/{id}", method=RequestMethod.GET)

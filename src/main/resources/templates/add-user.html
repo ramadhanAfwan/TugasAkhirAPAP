@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <object th:include="components/basepage :: css" th:remove="tag"></object>
+    <object th:include="components/basepage :: js" th:remove="tag"></object>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign Up</h5>
+            <div th:if="${param.error}">
+				<span style="color:red">Invalid username or password.</span>
+			</div>
+            <form th:action="@{/user/tambah}" method="POST" class="form-signin">
+              <div class="form-label-group">
+              	<label for="inputUsername">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required pattern="(?=.*[0-9])(?=.*[a-zA-Z]).{8,}">
+              </div>
+              
+              <div class="form-label-group">
+              	<label for="inputPassword">Role:</label>
+                <!-- <input type="text" name="role" class="form-control" placeholder="Role" required>-->
+                <select class="form-control" name="role" type="text">
+					<!-- <option disabled="disabled" selected="selected">Pilih Jenis Obat</option> --> 
+					<option value="ADMIN" th:text="'ADMIN'"></option>
+					<option value="STAFF" th:text="'STAFF'"></option>
+				</select>
+              </div>
+              <br>          
+              <button class="btn btn-md btn-primary btn-block text-uppercase" type="submit">Sign up</button>
+              <div style="padding-top:30px;text-align:center;color:#666" class="col-sm-10 offset-sm-1">
+				   Sudah punya akun? <a th:href="@{/login}">login</a>
+			  </div>    
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
