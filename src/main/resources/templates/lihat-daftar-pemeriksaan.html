@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{components/BasePage :: basepage}">
-	<head>
-		<title>View Pemeriksaan</title>
-	</head>
-	<body>
+<head>
+    <object th:include="components/BasePage :: title" th:remove="tag"></object>
+</head>
+<body>
 	<div id="Content" class="container-full-bg">
 		<br>
 		<h1>Data Pemeriksaan</h1>
@@ -19,16 +19,20 @@
 							<th>Tanggal Permintaan</th>
 							<th>Status</th>
 							<th></th>
+							<th></th>
 		        		</thead>
 		        		<tbody>
 		     			<tr th:each="pemeriksaan : *{listPemeriksaan}">
 							<td th:text="${pemeriksaan.idPasien}"></td>
 							<td th:text="${pemeriksaan.tanggalPengajuan}"></td>
-							<td th:text="${pemeriksaan.hasil}"></td>
-							<td>
-								<form th:action="@{/lab/pemeriksaan/}" method="GET">
-									<input type="hidden" name="id" th:value="${pemeriksaan.idPasien}">
-									<button class="btn btn-primary" type="submit">Update</button>	
+							<td th:if="${pemeriksaan.status==0}" th:text="'Menunggu'+' Persetujuan'"></td>
+							<td th:if="${pemeriksaan.status==1}" th:text="Diproses"></td>
+							<td th:if="${pemeriksaan.status==2}" th:text="Selesai"></td>
+							<td><a th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
+							<td th:if="${pemeriksaan.status==2}">
+								<form th:action="@{/kirim/hasil-lab}" method = "POST">
+									<input type="hidden" name="id" th:value="${pemeriksaan.id}">
+									<button id="kirimButton" class="btn btn-danger" type="submit">Kirim</button>	
 								</form>
 							</td>
 						</tr>
@@ -36,14 +40,7 @@
 		        	</table>
 		        </div>
 		    </div>
-		    <script type="text/javascript">
-		    	$(document).ready(function(e){
-		    		$(myTable).DataTable()
-		    	});
-		    </script>
-	
 		</div>
-	
 	</div>
 	</body>
 </html>

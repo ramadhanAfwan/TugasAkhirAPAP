@@ -8,8 +8,8 @@ import com.apap.TAsilab.model.PemeriksaanModel;
 
 public interface PemeriksaanService {
 	PemeriksaanModel findPemeriksaanById(long id);
-	
 	List<PemeriksaanModel> findAll();
+	void updatePemeriksaan(PemeriksaanModel pemeriksaan);
 	
 	
 }

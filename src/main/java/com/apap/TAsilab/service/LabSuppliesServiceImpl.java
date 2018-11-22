@@ -13,20 +13,16 @@ import com.apap.TAsilab.repository.LabSuppliesDB;
 @Transactional
 public class LabSuppliesServiceImpl implements LabSuppliesService {
 	@Autowired
-	LabSuppliesDB labSuppliesDb;
+	private LabSuppliesDB labSuppliesDb;
 
 	@Override
-	public List<LabSuppliesModel> getAllReagen() {
-		List<LabSuppliesModel> allSupplies = labSuppliesDb.findAll();
-		
-		List<LabSuppliesModel> listReagen = new ArrayList<LabSuppliesModel>();
-		for (LabSuppliesModel supplies :allSupplies) {
-			if(supplies.getJenis().equalsIgnoreCase("reagen")) {
-				listReagen.add(supplies);
-			}
-		}
-		
-		return listReagen;
+	public List<LabSuppliesModel> getAllReagen() {		
+		return labSuppliesDb.findByJenis("reagen");
+	}
+
+	@Override
+	public List<LabSuppliesModel> getAllSupplies() {
+		return labSuppliesDb.findAll();
 	}
 
 	@Override
@@ -35,7 +31,45 @@ public class LabSuppliesServiceImpl implements LabSuppliesService {
 	}
 	
 	@Override
-	public List<LabSuppliesModel> getAllSupplies() {
+	public List<LabSuppliesModel> findLabSuppliesByJenis(String jenis) {
+		// TODO Auto-generated method stub
+		return labSuppliesDb.findByJenis(jenis);
+	}
+
+	@Override
+	public List<LabSuppliesModel> getListSupplies() {
+		// TODO Auto-generated method stub
 		return labSuppliesDb.findAll();
+	}
+
+	@Override
+	public void addSupplies(LabSuppliesModel labSup) {
+		// TODO Auto-generated method stub
+		labSuppliesDb.save(labSup);
+	}
+
+	@Override
+	public LabSuppliesModel findById(long id) {
+		// TODO Auto-generated method stub
+		return labSuppliesDb.getOne(id);
+	}
+
+	@Override
+	public void updateLabSupplies(LabSuppliesModel labSupplies) {
+		// TODO Auto-generated method stub
+		labSuppliesDb.save(labSupplies);
+	}
+
+	@Override
+	public boolean cekLabSupplies(List<LabSuppliesModel> list) {
+		for(LabSuppliesModel a: list) {
+			// Kondisi jika lab supplies
+			//untuk jenis pemeriksaan tertentu sudah mendekati habis == 1
+			// munculkan message error pada template lihat-daftar-pemeriksaan
+			if(a.getJumlah()==1) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
