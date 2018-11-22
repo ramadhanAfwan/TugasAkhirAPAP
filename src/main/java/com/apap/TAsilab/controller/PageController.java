@@ -24,7 +24,7 @@ public class PageController {
 	}
 
 	@RequestMapping(value = "/pemeriksaan/view/{id}", method=RequestMethod.GET)
-	private String viewPilot(@PathVariable(value="id") Long id, Model model) {
+	private String viewPilot(@PathVariable(value="id") int id, Model model) {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(id);
 		model.addAttribute("id", pemeriksaan.getId());
 		model.addAttribute("idPasien", pemeriksaan.getIdPasien());

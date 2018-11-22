@@ -23,7 +23,7 @@ public class KebutuhanReagenServiceImpl implements KebutuhanReagenService {
 	}
 
 	@Override
-	public Optional<KebutuhanReagenModel> findReagenById(Long idReagen) {
+	public Optional<KebutuhanReagenModel> findReagenById(int idReagen) {
 		// TODO Auto-generated method stub
 		return kebutuhanReagenDB.findById(idReagen);
 	}

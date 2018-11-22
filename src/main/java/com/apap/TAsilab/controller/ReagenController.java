@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.TAsilab.model.KebutuhanReagenModel;
-import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.service.KebutuhanReagenService;
 
 @Controller
@@ -39,7 +38,7 @@ public class ReagenController {
 	}
 	
 	@RequestMapping(value = "/ubah/{id}", method = RequestMethod.GET)
-	public String ubahStatus(@PathVariable(value= "id") Long idReagen, Model model) {
+	public String ubahStatus(@PathVariable(value= "id") int idReagen, Model model) {
 		Optional<KebutuhanReagenModel> reagen = kebutuhanReagenService.findReagenById(idReagen);
 		model.addAttribute("reagen", reagen);
 		model.addAttribute("title", "Ubah Status Kebutuhan Reagen");

@@ -1,6 +1,6 @@
 package com.apap.TAsilab.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +36,7 @@ public class LabSuppliesController {
 		return "allPersediaan";
 	}
 	@RequestMapping(value = "/lab/stok/ubah/{id}", method = RequestMethod.GET)
-	public String ubahStok(@PathVariable (value="id") long id, Model model) {
+	public String ubahStok(@PathVariable (value="id") int id, Model model) {
 		LabSuppliesModel labUbah = labSupService.findById(id);
 		model.addAttribute("lab", labUbah);
 		return "ubah-lab";

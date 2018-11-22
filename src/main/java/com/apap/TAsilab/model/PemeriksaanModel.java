@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "pemeriksaan")
@@ -31,7 +30,7 @@ public class PemeriksaanModel implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 	
 	@NotNull
     @Column(name = "tanggal_pengajuan", nullable = false)
@@ -40,7 +39,7 @@ public class PemeriksaanModel implements Serializable {
 	// id pasien akan digunakan untuk mengambil object pasien dengan API di SI_Appointment
 	@NotNull
     @Column(name = "id_pasien", nullable = false)
-    private long idPasien;
+    private int idPasien;
 	
     @Column(name = "tanggal_pemeriksaan", nullable = true)
     private Date tanggalPemeriksaan;
@@ -63,11 +62,11 @@ public class PemeriksaanModel implements Serializable {
     @Column(name = "hasil", nullable = true)
     private String hasil;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -79,11 +78,11 @@ public class PemeriksaanModel implements Serializable {
 		this.tanggalPengajuan = tanggalPengajuan;
 	}
 
-	public long getIdPasien() {
+	public int getIdPasien() {
 		return idPasien;
 	}
 
-	public void setIdPasien(long idPasien) {
+	public void setIdPasien(int idPasien) {
 		this.idPasien = idPasien;
 	}
 

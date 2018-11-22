@@ -1,13 +1,13 @@
 package com.apap.TAsilab.rest;
 
 public class PasienDetail {
-	private Long id;
+	private int id;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 }

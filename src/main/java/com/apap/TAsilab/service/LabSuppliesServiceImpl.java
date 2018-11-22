@@ -35,7 +35,7 @@ public class LabSuppliesServiceImpl implements LabSuppliesService{
 	}
 
 	@Override
-	public LabSuppliesModel findById(long id) {
+	public LabSuppliesModel findById(int id) {
 		// TODO Auto-generated method stub
 		return LabSuppliesDb.getOne(id);
 	}

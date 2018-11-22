@@ -4,5 +4,5 @@ import com.apap.TAsilab.model.JenisPemeriksaanModel;
 
 public interface JenisPemeriksaanService {
 
-	JenisPemeriksaanModel findById(long id);
+	JenisPemeriksaanModel findById(int id);
 }

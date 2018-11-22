@@ -29,7 +29,7 @@ public class JadwalJagaModel implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
 	@NotNull
     @Column(name = "tanggal", nullable = false)
@@ -46,16 +46,16 @@ public class JadwalJagaModel implements Serializable {
 	// id staff akan digunakan untuk mengambil object staff dengan API di SI_Appointment
 	@NotNull
     @Column(name = "id_staff", nullable = false)
-    private long idStaff;
+    private int idStaff;
 	
 	@OneToMany(mappedBy = "jadwalJaga", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PemeriksaanModel> listPemeriksaan;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -83,11 +83,11 @@ public class JadwalJagaModel implements Serializable {
 		this.waktuSelesai = waktuSelesai;
 	}
 
-	public long getIdStaff() {
+	public int getIdStaff() {
 		return idStaff;
 	}
 
-	public void setIdStaff(long idStaff) {
+	public void setIdStaff(int idStaff) {
 		this.idStaff = idStaff;
 	}
 	@JsonIgnore

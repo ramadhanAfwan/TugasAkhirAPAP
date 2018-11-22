@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,11 +99,6 @@ public class ApiController {
 	public BaseResponse<List<JenisPemeriksaanModel>> viewJenisPemeriksaan(){
 		BaseResponse<List<JenisPemeriksaanModel>> response = new BaseResponse<List<JenisPemeriksaanModel>>();
 		response.setStatus(200);
-		List<JenisPemeriksaanModel> model = jenisPeriksaDb.findAll();
-		for (JenisPemeriksaanModel a:model) {
-			a.setListSupplies(null);
-			a.setListPemeriksaan(null);
-		}
 		response.setMessage("Success");
 		response.setResult(jenisPeriksaDb.findAll());
 		return response;
@@ -120,10 +114,6 @@ public class ApiController {
 		BaseResponse<List<JadwalJagaModel>> response = new BaseResponse<List<JadwalJagaModel>>();
 		response.setStatus(200);
 		response.setMessage("Success");
-		List<JadwalJagaModel> model = jadwalDb.findAll();
-		for (JadwalJagaModel a : model) {
-			a.setListPemeriksaan(null);
-		}
 		response.setResult(jadwalDb.findAll());
 		return response;
 	}
@@ -132,7 +122,7 @@ public class ApiController {
 	 * Fitur 10
 	 */
 	@PostMapping(value="/kirim/hasil-lab")
-	public HasilLab addLabResult(@RequestParam (value="id") Long id) {
+	public HasilLab addLabResult(@RequestParam (value="id") int id) {
 		PemeriksaanModel pemeriksaan = pemeriksaanDb.findById(id).get();
 		HasilLab hasil = new HasilLab();
 		PasienDetail pasien = new PasienDetail();
@@ -142,7 +132,7 @@ public class ApiController {
 		hasil.setTanggalPengajuan(pemeriksaan.getTanggalPengajuan());
 		hasil.setPasien(pasien);
 		try {
-			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/addLabResult", hasil, ResponseEntity.class);
+			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/03/addLabResult", hasil, ResponseEntity.class);
 			return hasil;
 		}
 		catch(Exception e) {
