@@ -37,6 +37,12 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 
 	@Override
 	public void updatePemeriksaan(PemeriksaanModel pemeriksaan) {
+		if(pemeriksaan.getStatus()==1) {
+			pemeriksaan.setHasil("Belum Ada Hasil");
+		}
+		else if(pemeriksaan.getStatus()==2) {
+			pemeriksaan.setHasil(pemeriksaan.getHasil().substring(1));
+		}
 		JenisPemeriksaanModel jp = jenisPemeriksaanDb.findById(pemeriksaan.getId());
 		for (LabSuppliesModel a: jp.getListSupplies()){
 			a.setJumlah(a.getJumlah()-1);

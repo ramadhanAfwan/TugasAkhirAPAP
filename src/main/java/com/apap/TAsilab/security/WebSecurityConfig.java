@@ -23,6 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/user/tambah").permitAll()
 			.antMatchers("/lab/kebutuhan/perencanaan").permitAll()
 			.antMatchers("/lab/pemeriksaan/permintaan").permitAll()
+			.antMatchers("/getAllJenisPemeriksaan").permitAll()
+			.antMatchers("/getAllJadwal").permitAll()
 			.antMatchers("/lab/kebutuhan/tambah").hasAnyAuthority("STAFF")
 			.antMatchers("/lab/kebutuhan").hasAnyAuthority("ADMIN","STAFF")
 			.antMatchers("/lab/kebutuhan/ubah/**").hasAnyAuthority("ADMIN")

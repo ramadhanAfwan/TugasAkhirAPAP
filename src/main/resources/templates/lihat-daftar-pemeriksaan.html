@@ -18,7 +18,7 @@
 		        			<th>Id Pasien</th>
 							<th>Tanggal Permintaan</th>
 							<th>Status</th>
-							<th></th>
+							<th>Hasil</th>
 							<th></th>
 		        		</thead>
 		        		<tbody>
@@ -28,7 +28,9 @@
 							<td th:if="${pemeriksaan.status==0}" th:text="'Menunggu'+' Persetujuan'"></td>
 							<td th:if="${pemeriksaan.status==1}" th:text="Diproses"></td>
 							<td th:if="${pemeriksaan.status==2}" th:text="Selesai"></td>
-							<td><a th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
+							<td th:if="${pemeriksaan.hasil=='Belum Ada Hasil'}" th:text="'Belum'+' Ada'+' Hasil'"></td>
+							<td th:if="${pemeriksaan.hasil!='Belum Ada Hasil'}" th:text="${pemeriksaan.hasil}"></td>
+							<td th:if="${pemeriksaan.status!=2}"><a th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
 							<td th:if="${pemeriksaan.status==2}">
 								<form th:action="@{/kirim/hasil-lab}" method = "POST">
 									<input type="hidden" name="id" th:value="${pemeriksaan.id}">

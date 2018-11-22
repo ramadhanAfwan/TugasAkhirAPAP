@@ -128,7 +128,7 @@ public class ApiController {
 		PasienDetail pasien = new PasienDetail();
 		pasien.setId(pemeriksaan.getIdPasien());
 		hasil.setJenis(pemeriksaan.getJenisPemeriksaan().getNama());
-		hasil.setHasil(pemeriksaan.getHasil().substring(1));
+		hasil.setHasil(pemeriksaan.getHasil());
 		hasil.setTanggalPengajuan(pemeriksaan.getTanggalPengajuan());
 		hasil.setPasien(pasien);
 		try {
