@@ -49,7 +49,6 @@ public class JadwalJagaController {
 //		jadwalJaga.setWaktuMulai("00:00:00");
 //		jadwalJaga.setWaktuSelesai("00:00:00");
 		jadwalJagaService.addJadwalJaga(jadwalJaga);
-		
 		model.addAttribute("msg", "jadwal berhasil ditambah");
 		return "success-page";
 	}
