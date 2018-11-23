@@ -88,7 +88,10 @@ public class PemeriksaanController {
 	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.POST)
 	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel pemeriksaan, Model model) throws ParseException {
 		
-		pemeriksaanService.updatePemeriksaan(pemeriksaan);
+		if(pemeriksaan.getStatus()==0) {
+			int status = 0;
+		}
+		pemeriksaanService.updatePemeriksaan(pemeriksaan, status);
 		model.addAttribute("msg", "Status Pemeriksaan berhasil diubah");
 		return "success-page";
 	}

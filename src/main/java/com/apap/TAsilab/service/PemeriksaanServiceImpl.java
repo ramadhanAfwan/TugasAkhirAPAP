@@ -93,7 +93,7 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 	}
 
 	@Override
-	public void updatePemeriksaan(PemeriksaanModel pemeriksaan) throws java.text.ParseException {
+	public void updatePemeriksaan(PemeriksaanModel pemeriksaan, int status) throws java.text.ParseException {
 
 		JenisPemeriksaanModel jp = jenisPemeriksaanDb.findById(pemeriksaan.getId());
 		for (LabSuppliesModel a: jp.getListSupplies()){

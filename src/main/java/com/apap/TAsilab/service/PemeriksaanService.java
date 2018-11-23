@@ -14,7 +14,7 @@ import com.apap.TAsilab.rest.PemeriksaanDetail;
 public interface PemeriksaanService {
 	PemeriksaanModel findPemeriksaanById(long id);
 	List<PemeriksaanModel> findAll();
-	void updatePemeriksaan(PemeriksaanModel pemeriksaan) throws java.text.ParseException;
+	void updatePemeriksaan(PemeriksaanModel pemeriksaan, int status) throws java.text.ParseException;
 	PasienDetail getPasien(int idPasien) throws ParseException;
 	Map<Long, PasienDetail> getPatient() throws ParseException;
 //	PemeriksaanDetail getPemeriksaan() throws ParseException;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{components/BasePage :: basepage}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <object th:include="components/BasePage :: title" th:remove="tag"></object>
+    
 </head>	
 	<body>
 	<div id="Content" class="container-full-bg">
@@ -62,7 +62,10 @@
 		     			<tr th:each="reagen : *{listKebutuhanReagen}">
 							<td th:text="${reagen.id}"></td>
 							<td th:text="${reagen.jumlah}"></td>
-							<td th:text="${status}"></td>
+							<td>
+								<div th:if="${reagen.status==0}" th:text="'Aktif/Belum Beli'"></div>
+								<div th:if="${reagen.status==1}" th:text="'Tidak Aktif/Telah dibeli'"></div>
+							</td>
 							<td th:text="${reagen.tanggalUpdate}"></td>
 							<td>
 								<form id="update" th:action="@{/lab/kebutuhan/ubah} + ${reagen.id}" method="GET">
