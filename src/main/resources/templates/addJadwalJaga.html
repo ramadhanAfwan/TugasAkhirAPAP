@@ -18,9 +18,11 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="jam_mulai" class="col-sm-3 col-form-label-md">Jam mulai</label>
+					<label for="jam_mulai" class="col-sm-3 col-form-label-md">Jam mulai</label> <!-- Jam mulai nama yang di tampilin -->
 					<div class="col-sm-9">
 						<input type="time" name="waktuMulai" required class="form-control" id="waktu_mulai" />
+						<!-- waktuMulai itu nama di Jadwaljagamodel
+						waktu_mulai itu nama di db nya -->
 					</div>
 				</div>
 				<div class="form-group row">
@@ -36,7 +38,11 @@
 						<option th:each="staff : ${listStaff}" th:value="${staff.id}" th:text="${staff.nama}"></option>
 					</select>
 				</div>
+				<!-- <input type="hidden" name="id" th:value="${jadwalJaga.id}"> -->
 				<button type="submit" class="btn btn-primary mb-2">Simpan</button>
+							
+					
+			
 			</form>
 		</div>
 	</div>
