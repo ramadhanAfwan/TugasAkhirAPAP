@@ -62,7 +62,7 @@ public class ReagenController {
 	}
 
 	@RequestMapping(value = "/ubah/{id}", method = RequestMethod.GET)
-	public String ubahStatus(@PathVariable(value= "id") Long idReagen, Model model) {
+	public String ubahStatus(@PathVariable(value= "id") int idReagen, Model model) {
 		Optional<KebutuhanReagenModel> reagen = kebutuhanReagenService.findReagenById(idReagen);
 		model.addAttribute("reagen", reagen);
 		model.addAttribute("title", "Ubah Status Kebutuhan Reagen");

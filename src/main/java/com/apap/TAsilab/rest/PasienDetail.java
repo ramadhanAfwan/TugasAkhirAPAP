@@ -7,17 +7,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PasienDetail {
-	private Long id;
+	private int id;
 	private String nama;
 	private Date tanggalRujukan;
 	private String poliRujukan;
 	private StatusPasien statusPasien;
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long i) {
+	public void setId(int i) {
 		this.id = i;
 	}
 

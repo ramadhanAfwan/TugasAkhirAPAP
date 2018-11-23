@@ -28,7 +28,7 @@ public class KebutuhanReagenModel implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reagen", referencedColumnName = "id", nullable = false)
@@ -47,11 +47,11 @@ public class KebutuhanReagenModel implements Serializable {
     @Column(name = "status", nullable = false)
     private int status;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

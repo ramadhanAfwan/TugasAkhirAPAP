@@ -3,6 +3,6 @@ import com.apap.TAsilab.model.JadwalJagaModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JadwalJagaDB extends JpaRepository<JadwalJagaModel, Long>{
+public interface JadwalJagaDB extends JpaRepository<JadwalJagaModel, Integer>{
 
 }
