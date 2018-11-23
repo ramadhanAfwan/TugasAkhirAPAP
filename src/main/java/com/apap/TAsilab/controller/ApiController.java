@@ -140,4 +140,17 @@ public class ApiController {
 			return hasil;
 		}
 	}
+	
+//	@PostMapping(value="/kirim/jadwal-jaga")
+//	public JadwalJagaModel jadwalJagaKirim(@RequestParam (value="id") Long id) {
+//		JadwalJagaModel jadwalJaga = jadwalDb.findById(id).get();
+//		try {
+//			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/addLabResult", jadwalJaga, ResponseEntity.class); //link diganti sama web service yg dibuat igd
+//			return jadwalJaga;
+//		}
+//		catch(Exception e) {
+//			return jadwalJaga;
+//		}
+//	}
+	
 }
