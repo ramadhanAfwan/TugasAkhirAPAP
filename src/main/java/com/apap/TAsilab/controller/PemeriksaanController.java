@@ -45,7 +45,7 @@ public class PemeriksaanController {
 	public String viewAllPemeriksaan(Model model) throws ParseException {
 		List<PemeriksaanModel> listPemeriksaan = pemeriksaanService.findAll();
 		Map<Integer, PasienDetail> mapPasien = pemeriksaanService.getPatient();
-		Map<Integer, KamarDetail> mapKamar = pemeriksaanService.getRoom();
+//		Map<Integer, KamarDetail> mapKamar = pemeriksaanService.getRoom();
 		
 		if(listPemeriksaan.size()==0) {
 			model.addAttribute("header", "Tidak ada permintaan pemeriksaan");
@@ -62,8 +62,9 @@ public class PemeriksaanController {
 	
 
 	@RequestMapping(value = "/lab/pemeriksaan/{id}", method = RequestMethod.GET)
-	public String ubahStatus(@PathVariable(value= "id") int idPemeriksaan, Model model) {
+	public String ubahStatus(@PathVariable(value= "id") int idPemeriksaan, Model model) throws ParseException {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
+		Map<Integer, PasienDetail> mapPasien = pemeriksaanService.getPatient();
 
 //		String[] status = {"Menunggu Persetujuan","Diproses","Selesai"};
 //		List<String> listStatus = Arrays.asList(status);
@@ -73,6 +74,7 @@ public class PemeriksaanController {
 			// tambahin kondisi buat nampilin input hasil
 //			model.addAttribute("status", pemeriksaan.getStatus());
 			model.addAttribute("old", pemeriksaan);
+			model.addAttribute("mapPasien", mapPasien);
 		}
 		else {
 			JenisPemeriksaanModel jenisPemeriksaan = jenisPemeriksaanService.findById(idPemeriksaan);
@@ -84,6 +86,7 @@ public class PemeriksaanController {
 			}
 		}
 //		model.addAttribute("listStatus", listStatus);
+		model.addAttribute("mapPasien", mapPasien);
 		model.addAttribute("old", pemeriksaan);
 		return "ubah-status";
 	}

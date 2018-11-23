@@ -17,8 +17,8 @@ public interface PemeriksaanService {
 	void updatePemeriksaan(PemeriksaanModel pemeriksaan) throws ParseException;
 	PasienDetail getPasien(int idPasien) throws ParseException;
 	Map<Integer, PasienDetail> getPatient() throws ParseException;
-	KamarDetail getKamar(int idPasien) throws ParseException;
-	Map<Integer, KamarDetail> getRoom() throws ParseException;
+//	KamarDetail getKamar(int idPasien) throws ParseException;
+//	Map<Integer, KamarDetail> getRoom() throws ParseException;
 	
 	
 }
