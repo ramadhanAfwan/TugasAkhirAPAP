@@ -64,6 +64,16 @@ public class ApiController {
 			response.setMessage("Error Data");
 		}
 		else {
+			// Set tanggal pengajuan berdasarkan submit
+			java.util.Date uDate = new java.util.Date();
+			java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+			pemeriksaanLab.setTanggalPengajuan(sDate);
+			// Set tanggal pemeriksaan untuk jadwal jaga dengan attribut null
+			JadwalJagaModel temp = jadwalDb.findById(pemeriksaanLab.getJadwalJaga().getId()).get();
+			System.out.println(temp.getTanggal().toString());
+			pemeriksaanLab.setTanggalPemeriksaan(temp.getTanggal());
+			// Set tanggal untuk jadwal jaga dengan attribut tidak null
+			//pemeriksaanLab.setTanggalPemeriksaan(pemeriksaanLab.getJadwalJaga().getTanggal());
 			pemeriksaanLab.setStatus(0);
 			pemeriksaanLab.setHasil("Belum Ada Hasil");
 			pemeriksaanDb.save(pemeriksaanLab);
