@@ -71,10 +71,19 @@ public class JadwalJagaController {
 		
 	}
 	
-	@RequestMapping(value = "/lab/jadwal-jaga/{tanggal}", method = RequestMethod.GET)
-	public String lihatJadwalJaga(Model model) throws Exception{
-		return "lihat-jadwal-jaga";
-	}
+//	@RequestMapping(value = "/lab/jadwal-jaga/{tanggal}", method = RequestMethod.GET)
+//	public String lihatJadwalJaga(@PathVariable(value="tanggal") String tanggal, Model model) throws Exception{
+//		List<JadwalJagaModel> listJadwal = jadwalJagaService.getJadwalJagaByTangal(tanggal);
+//		LabRestController labRestController = new LabRestController();
+//		List staff = labRestController.getAllStaff();
+//		System.out.println(model.containsAttribute("tanggalsekarang"));
+//		long millis = System.currentTimeMillis();
+//		Date date = new java.sql.Date(millis);
+//		model.addAttribute("tangalsekarang", date);
+//		model.addAttribute("listJadwal", listJadwal);
+//		model.addAttribute("listStaff", staff);
+//		return "lihat-jadwal-jaga";
+//	}
 	
 	@RequestMapping(value = "/lab/jadwal-jaga/ubah/{id}", method = RequestMethod.GET)
 	public String ubahJadwalJaga(Model model) throws Exception{
