@@ -1,5 +1,5 @@
 package com.apap.TAsilab.service;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,39 +11,53 @@ import com.apap.TAsilab.repository.LabSuppliesDB;
 
 @Service
 @Transactional
-public class LabSuppliesServiceImpl implements LabSuppliesService{
+public class LabSuppliesServiceImpl implements LabSuppliesService {
 	@Autowired
+	private LabSuppliesDB labSuppliesDb;
 
-	private LabSuppliesDB LabSuppliesDb;
+	@Override
+	public List<LabSuppliesModel> getAllReagen() {		
+		return labSuppliesDb.findByJenis("reagen");
+	}
+
+	@Override
+	public List<LabSuppliesModel> getAllSupplies() {
+		return labSuppliesDb.findAll();
+	}
+
+	@Override
+	public LabSuppliesModel getSuppliesDetailById(long id) {
+		return labSuppliesDb.findById(id).get();
+	}
 	
 	@Override
 	public List<LabSuppliesModel> findLabSuppliesByJenis(String jenis) {
 		// TODO Auto-generated method stub
-		return LabSuppliesDb.findByJenis(jenis);
+		return labSuppliesDb.findByJenis(jenis);
 	}
 
 	@Override
 	public List<LabSuppliesModel> getListSupplies() {
 		// TODO Auto-generated method stub
-		return LabSuppliesDb.findAll();
+		return labSuppliesDb.findAll();
 	}
 
 	@Override
 	public void addSupplies(LabSuppliesModel labSup) {
 		// TODO Auto-generated method stub
-		LabSuppliesDb.save(labSup);
+		labSuppliesDb.save(labSup);
 	}
 
 	@Override
 	public LabSuppliesModel findById(long id) {
 		// TODO Auto-generated method stub
-		return LabSuppliesDb.getOne(id);
+		return labSuppliesDb.getOne(id);
 	}
 
 	@Override
 	public void updateLabSupplies(LabSuppliesModel labSupplies) {
 		// TODO Auto-generated method stub
-		LabSuppliesDb.save(labSupplies);
+		labSuppliesDb.save(labSupplies);
 	}
 
 	@Override
@@ -58,5 +72,4 @@ public class LabSuppliesServiceImpl implements LabSuppliesService{
 		}
 		return true;
 	}
-
 }

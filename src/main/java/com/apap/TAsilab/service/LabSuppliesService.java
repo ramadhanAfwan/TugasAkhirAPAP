@@ -4,6 +4,9 @@ import java.util.List;
 import com.apap.TAsilab.model.LabSuppliesModel;
 
 public interface LabSuppliesService {
+	List<LabSuppliesModel> getAllReagen();
+	LabSuppliesModel getSuppliesDetailById(long id);
+	List<LabSuppliesModel> getAllSupplies();
 	List<LabSuppliesModel> findLabSuppliesByJenis(String jenis);
 	List<LabSuppliesModel> getListSupplies();
 	void addSupplies(LabSuppliesModel labSup);

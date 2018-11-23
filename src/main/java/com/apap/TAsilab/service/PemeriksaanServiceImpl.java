@@ -1,5 +1,7 @@
 package com.apap.TAsilab.service;
 
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,12 +93,14 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 	}
 
 	@Override
-	public void updatePemeriksaan(PemeriksaanModel pemeriksaan) {
+	public void updatePemeriksaan(PemeriksaanModel pemeriksaan) throws java.text.ParseException {
+
 		JenisPemeriksaanModel jp = jenisPemeriksaanDb.findById(pemeriksaan.getId());
 		for (LabSuppliesModel a: jp.getListSupplies()){
 			a.setJumlah(a.getJumlah()-1);
 		}
 		
+		pemeriksaan.setTanggalPemeriksaan(pemeriksaan.getTanggalPemeriksaan());
 		pemeriksaan.setStatus(pemeriksaan.getStatus());
 		pemeriksaanDb.save(pemeriksaan);
 	}

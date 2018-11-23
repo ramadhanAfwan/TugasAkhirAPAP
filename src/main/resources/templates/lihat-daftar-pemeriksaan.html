@@ -26,7 +26,7 @@
 							<td th:if="${pemeriksaan.status==0}" th:text="'Menunggu'+' Persetujuan'"></td>
 							<td th:if="${pemeriksaan.status==1}" th:text="Diproses"></td>
 							<td th:if="${pemeriksaan.status==2}" th:text="Selesai"></td>
-							<td><a th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
+							<td><a th:if="${pemeriksaan.status==0} or ${pemeriksaan.status==1}" th:href="@{'/lab/pemeriksaan/' +${pemeriksaan.id}}" class="button">Update</a></td>
 							<td th:if="${pemeriksaan.status==2}">
 								<form th:action="@{/kirim/hasil-lab}" method = "POST">
 									<input type="hidden" name="id" th:value="${pemeriksaan.id}">

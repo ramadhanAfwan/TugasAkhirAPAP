@@ -1,5 +1,7 @@
 package com.apap.TAsilab.controller;
 
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -60,10 +62,13 @@ public class PemeriksaanController {
 	public String ubahStatus(@PathVariable(value= "id") Long idPemeriksaan, Model model) {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
 
+//		String[] status = {"Menunggu Persetujuan","Diproses","Selesai"};
+//		List<String> listStatus = Arrays.asList(status);
+		
 		// kondisi perubahan status dari proses menjadi selesai
 		if(pemeriksaan.getStatus()==1) {
 			// tambahin kondisi buat nampilin input hasil
-			model.addAttribute("status", pemeriksaan.getStatus());
+//			model.addAttribute("status", pemeriksaan.getStatus());
 			model.addAttribute("old", pemeriksaan);
 		}
 		else {
@@ -75,12 +80,13 @@ public class PemeriksaanController {
 				return "success-page";
 			}
 		}
+//		model.addAttribute("listStatus", listStatus);
 		model.addAttribute("old", pemeriksaan);
 		return "ubah-status";
 	}
 	
 	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.POST)
-	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel pemeriksaan, Model model) {
+	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel pemeriksaan, Model model) throws ParseException {
 		
 		pemeriksaanService.updatePemeriksaan(pemeriksaan);
 		model.addAttribute("msg", "Status Pemeriksaan berhasil diubah");

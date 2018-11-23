@@ -17,6 +17,10 @@ public class KebutuhanReagenServiceImpl implements KebutuhanReagenService {
 	private KebutuhanReagenDB kebutuhanReagenDB;
 
 	@Override
+	public void add(KebutuhanReagenModel kebutuhanReagen) {
+		kebutuhanReagenDB.save(kebutuhanReagen);
+		
+	}
 	public List<KebutuhanReagenModel> findAll() {
 		// TODO Auto-generated method stub
 		return kebutuhanReagenDB.findAll();
@@ -27,6 +31,4 @@ public class KebutuhanReagenServiceImpl implements KebutuhanReagenService {
 		// TODO Auto-generated method stub
 		return kebutuhanReagenDB.findById(idReagen);
 	}
-	
-	
 }

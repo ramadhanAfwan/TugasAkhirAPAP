@@ -121,7 +121,7 @@ public class ApiController {
 		response.setMessage("Success");
 		List<JadwalJagaModel> model = jadwalDb.findAll();
 		for (JadwalJagaModel a : model) {
-			a.setListPemeriksaan(null);
+//			a.setListPemeriksaan(null);
 		}
 		response.setResult(jadwalDb.findAll());
 		return response;
