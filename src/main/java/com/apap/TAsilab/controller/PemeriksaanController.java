@@ -65,14 +65,9 @@ public class PemeriksaanController {
 	public String ubahStatus(@PathVariable(value= "id") int idPemeriksaan, Model model) throws ParseException {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
 		Map<Integer, PasienDetail> mapPasien = pemeriksaanService.getPatient();
-
-//		String[] status = {"Menunggu Persetujuan","Diproses","Selesai"};
-//		List<String> listStatus = Arrays.asList(status);
 		
 		// kondisi perubahan status dari proses menjadi selesai
 		if(pemeriksaan.getStatus()==1) {
-			// tambahin kondisi buat nampilin input hasil
-//			model.addAttribute("status", pemeriksaan.getStatus());
 			model.addAttribute("old", pemeriksaan);
 			model.addAttribute("mapPasien", mapPasien);
 		}
@@ -85,7 +80,6 @@ public class PemeriksaanController {
 				return "success-page";
 			}
 		}
-//		model.addAttribute("listStatus", listStatus);
 		model.addAttribute("mapPasien", mapPasien);
 		model.addAttribute("old", pemeriksaan);
 		return "ubah-status";
