@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,6 +49,12 @@ public class JadwalJagaController {
 //		System.out.println("masuk");
 //		jadwalJaga.setWaktuMulai("00:00:00");
 //		jadwalJaga.setWaktuSelesai("00:00:00");
+		try {
+			restTemplate.postForObject("http://localhost:6060/testing/kirim-jadwal", jadwalJaga, ResponseEntity.class); //link diganti sama web service yg dibuat igd
+		}
+		catch(Exception e) {
+			
+		}
 		jadwalJagaService.addJadwalJaga(jadwalJaga);
 		model.addAttribute("msg", "jadwal berhasil ditambah");
 		return "success-page";
