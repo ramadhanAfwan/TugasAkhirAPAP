@@ -3,19 +3,52 @@
 
 <head>
     <object th:include="components/BasePage :: title" th:remove="tag"></object>
+    
+    <!-- pagination -->
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css}"/> 
+	<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+	
+	<script>
+	$(document).ready( function () {
+	    $('#searchResult').DataTable();
+	} );
+	</script>
+	
 </head>	
 
 <body>
 	<div id="Content" class="container-full-bg">
-		<!-- <tr th:each="jadwal : ${listJadwal}">
-			<td th:text="${jadwal.tanggal}"></td>
-			<td th:text="${jadwal.waktuMulai}"></td>
-			<td th:text="${jadwal.waktuSelesai}"></td>
-			<div th:each="staffX : ${listStaff}">
-				<div th:if= "$(jadwal.idStaff} == ${staffX.id}")>
-					<td th:text="${staffX.nama}"></td>
-				</div>				
-			</div>
-		</tr>	 -->		
+		<div class="col">
+			<table border="1" id="searchResult">
+				<thead>
+					<tr>					
+					<th style="text-align: center">Tanggal</th>
+					<th style="text-align: center">Jam mulai</th>
+					<th style="text-align: center">Jam selesai</th>
+					<th style="text-align: center">Nama Staff</th>
+					</tr>					
+				</thead>
+				<tbody>
+					<tr th:each="jadwalJaga,iterationStatus : ${listJadwalJaga}">
+						<td th:text="${jadwalJaga.tanggal}"></td>
+						<td th:text="${jadwalJaga.waktuMulai}"></td>
+						<td th:text="${jadwalJaga.waktuSelesai}"></td>
+						<td th:text="${listInfoStaff{__${jadwalJaga.idStaff}__}}"></td>
+					</tr>
+				</tbody>
+			</table>			
+		</div>	
 	</div>
+	
+	<script>
+	$(document).ready( function () {
+	    $('#searchResult').DataTable()({
+	    	"pagingType" : "full_numberss"
+	    });
+	} );
+	</script>
+	
 </body>
