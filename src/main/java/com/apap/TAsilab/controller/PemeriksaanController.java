@@ -24,6 +24,8 @@ import com.apap.TAsilab.model.JenisPemeriksaanModel;
 import com.apap.TAsilab.model.LabSuppliesModel;
 import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.rest.HasilLab;
+
+import com.apap.TAsilab.rest.KamarDetail;
 import com.apap.TAsilab.rest.PasienDetail;
 import com.apap.TAsilab.service.JadwalJagaService;
 import com.apap.TAsilab.service.JenisPemeriksaanService;
@@ -78,6 +80,7 @@ public class PemeriksaanController {
 	public String viewAllPemeriksaan(Model model) throws ParseException {
 		List<PemeriksaanModel> listPemeriksaan = pemeriksaanService.findAll();
 		Map<Integer, PasienDetail> mapPasien = pemeriksaanService.getPatient();
+//		Map<Integer, KamarDetail> mapKamar = pemeriksaanService.getRoom();
 		
 		if(listPemeriksaan.size()==0) {
 			model.addAttribute("header", "Tidak ada permintaan pemeriksaan");
@@ -98,11 +101,8 @@ public class PemeriksaanController {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.findPemeriksaanById(idPemeriksaan);
 		Map<Integer, PasienDetail> mapPasien = pemeriksaanService.getPatient();
 		List<JadwalJagaModel> jadwal = jadwalService.getJadwalAll();
-
 		// kondisi perubahan status dari proses menjadi selesai
 		if(pemeriksaan.getStatus()==1) {
-			// tambahin kondisi buat nampilin input hasil
-//			model.addAttribute("status", pemeriksaan.getStatus());
 			model.addAttribute("old", pemeriksaan);
 			model.addAttribute("mapPasien", mapPasien);
 			model.addAttribute("tanggal", jadwal);
@@ -125,6 +125,7 @@ public class PemeriksaanController {
 	
 	@RequestMapping(value = "/lab/pemeriksaan", method = RequestMethod.POST)
 	public String ubahStatusSubmit(@ModelAttribute PemeriksaanModel pemeriksaan, Model model) throws ParseException {
+
 		pemeriksaanService.updatePemeriksaan(pemeriksaan);
 		model.addAttribute("msg", "Status Pemeriksaan berhasil diubah");
 		return "success-page";

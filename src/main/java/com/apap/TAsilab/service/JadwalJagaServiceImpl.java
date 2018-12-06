@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.apap.TAsilab.model.JadwalJagaModel;
 import com.apap.TAsilab.repository.JadwalJagaDB;
 
@@ -19,6 +18,28 @@ public class JadwalJagaServiceImpl implements JadwalJagaService {
 	@Override
 	public void addJadwalJaga(JadwalJagaModel jadwalJaga) {
 		jadwalJagaDB.save(jadwalJaga);
+	}
+	
+	
+	@Override
+	public List<JadwalJagaModel> getJadwalJagaByTangal(String tanggal){
+		return jadwalJagaDB.findByTanggal(tanggal);
+	}
+	
+	@Override
+	public JadwalJagaModel getJadwalJagaById(int id) {
+		return jadwalJagaDB.findById(id);
+	}
+	
+	@Override
+	public void ubahJadwalJaga(int id, JadwalJagaModel newJadwalJaga) {
+		JadwalJagaModel UpdateJadwalJaga = jadwalJagaDB.findById(id);
+		UpdateJadwalJaga.setId(newJadwalJaga.getId());
+		UpdateJadwalJaga.setTanggal(newJadwalJaga.getTanggal());
+		UpdateJadwalJaga.setWaktuMulai(newJadwalJaga.getWaktuMulai());
+		UpdateJadwalJaga.setWaktuSelesai(newJadwalJaga.getWaktuSelesai());
+		UpdateJadwalJaga.setIdStaff(newJadwalJaga.getIdStaff());
+		jadwalJagaDB.save(UpdateJadwalJaga);
 	}
 
 	@Override

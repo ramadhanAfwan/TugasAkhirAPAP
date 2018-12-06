@@ -17,6 +17,7 @@ import com.apap.TAsilab.model.LabSuppliesModel;
 import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.repository.JenisPemeriksaanDB;
 import com.apap.TAsilab.repository.PemeriksaanDB;
+import com.apap.TAsilab.rest.KamarDetail;
 import com.apap.TAsilab.rest.PasienDetail;
 
 
@@ -59,23 +60,32 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 	}
 	
 //	@Override
-//	public PemeriksaanDetail getPemeriksaan() throws ParseException {
-//		PemeriksaanDetail pemeriksaan = new PemeriksaanDetail();
-//		JSONParser parser = new JSONParser();
-//		String response = restTemplate.getForObject("http://si-rawatinap.herokuapp.com/api/get-all-kamar/", String.class);
-//        System.out.println(response);
-//        JSONObject json = (JSONObject) parser.parse(response);
-//        JSONObject result = (JSONObject) json.get("result");
-//        String nama = (String) result.get("nama");
-//        long id_pasien = (long) result.get("id");
-//        pemeriksaan.setId(id_pasien);
-//        pemeriksaan.setNama(nama);
-//        System.out.println(nama);
-//        System.out.println(id_pasien);
-//        return pemeriksaan;
+//	public Map<Integer, KamarDetail> getRoom() throws ParseException {
+//		Map<Integer, KamarDetail> mapKamar = new HashMap<Integer, KamarDetail>();
+//		List<PemeriksaanModel> listPemeriksaan = pemeriksaanDb.findAll();
+//		for (PemeriksaanModel pemeriksaan : listPemeriksaan){
+//			KamarDetail kamar = this.getKamar((int)pemeriksaan.getIdPasien());
+//			mapKamar.put(pemeriksaan.getId(), kamar);
+//		}
+//		
+//		return mapKamar;
 //	}
 	
-	
+//	@Override
+//	public KamarDetail getKamar(int idPasien) throws ParseException {
+//		KamarDetail kamar = new KamarDetail();
+//		JSONParser parser = new JSONParser();
+//		String response = restTemplate.getForObject("http://si-rawatInap.herokuapp.com/api/get-all-kamar", String.class);
+//        JSONObject json = (JSONObject) parser.parse(response);
+//        JSONObject result = (JSONObject) json.get("result");
+//        int requestPasien = (int) result.get("id");
+//        int id_pasien = Integer.parseInt(result.get("id_pasien").toString());
+//        int assignKamar = (int) result.get("assign");
+//        kamar.setIdPasien(id_pasien);
+//        kamar.setRequestPasien(requestPasien);
+//        kamar.setAssignKamar(assignKamar);
+//        return kamar;
+//	}
 	
 	@Override
 	public PemeriksaanModel findPemeriksaanById(int id) {
@@ -95,7 +105,7 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 			pemeriksaan.setHasil("Belum Ada Hasil");
 		}
 		else if(pemeriksaan.getStatus()==2) {
-			pemeriksaan.setHasil(pemeriksaan.getHasil().substring(1));
+			pemeriksaan.setHasil(pemeriksaan.getHasil());
 		}
 		JenisPemeriksaanModel jp = jenisPemeriksaanDb.findById(pemeriksaan.getJenisPemeriksaan().getId());
 		for (LabSuppliesModel a: jp.getListSupplies()){
