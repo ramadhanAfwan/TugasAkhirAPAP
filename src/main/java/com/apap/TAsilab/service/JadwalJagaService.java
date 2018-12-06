@@ -11,9 +11,9 @@ public interface JadwalJagaService {
 
 	List<JadwalJagaModel> getJadwalJagaByTangal(String tanggal);
 
-	JadwalJagaModel getJadwalJagaById(long id);
+	JadwalJagaModel getJadwalJagaById(int id);
 
-	void ubahJadwalJaga(long id, JadwalJagaModel newJadwalJaga);
+	void ubahJadwalJaga(int id, JadwalJagaModel newJadwalJaga);
 	
 	
 }

@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JadwalJagaDB extends JpaRepository<JadwalJagaModel, Long>{
+public interface JadwalJagaDB extends JpaRepository<JadwalJagaModel, Integer>{
+
 
 	List<JadwalJagaModel> findByTanggal(String tanggal);
-	JadwalJagaModel findById(long id);
+	JadwalJagaModel findById(int id);
 }

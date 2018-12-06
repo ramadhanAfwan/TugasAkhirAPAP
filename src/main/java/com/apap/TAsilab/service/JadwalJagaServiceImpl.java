@@ -27,12 +27,12 @@ public class JadwalJagaServiceImpl implements JadwalJagaService {
 	}
 	
 	@Override
-	public JadwalJagaModel getJadwalJagaById(long id) {
+	public JadwalJagaModel getJadwalJagaById(int id) {
 		return jadwalJagaDB.findById(id);
 	}
 	
 	@Override
-	public void ubahJadwalJaga(long id, JadwalJagaModel newJadwalJaga) {
+	public void ubahJadwalJaga(int id, JadwalJagaModel newJadwalJaga) {
 		JadwalJagaModel UpdateJadwalJaga = jadwalJagaDB.findById(id);
 		UpdateJadwalJaga.setId(newJadwalJaga.getId());
 		UpdateJadwalJaga.setTanggal(newJadwalJaga.getTanggal());

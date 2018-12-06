@@ -64,6 +64,16 @@ public class ApiController {
 			response.setMessage("Error Data");
 		}
 		else {
+			// Set tanggal pengajuan berdasarkan submit
+			java.util.Date uDate = new java.util.Date();
+			java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+			pemeriksaanLab.setTanggalPengajuan(sDate);
+			// Set tanggal pemeriksaan untuk jadwal jaga dengan attribut null
+			JadwalJagaModel temp = jadwalDb.findById(pemeriksaanLab.getJadwalJaga().getId());
+			System.out.println(temp.getTanggal().toString());
+			pemeriksaanLab.setTanggalPemeriksaan(temp.getTanggal());
+			// Set tanggal untuk jadwal jaga dengan attribut tidak null
+			//pemeriksaanLab.setTanggalPemeriksaan(pemeriksaanLab.getJadwalJaga().getTanggal());
 			pemeriksaanLab.setStatus(0);
 			pemeriksaanLab.setHasil("Belum Ada Hasil");
 			pemeriksaanDb.save(pemeriksaanLab);
@@ -99,11 +109,6 @@ public class ApiController {
 	public BaseResponse<List<JenisPemeriksaanModel>> viewJenisPemeriksaan(){
 		BaseResponse<List<JenisPemeriksaanModel>> response = new BaseResponse<List<JenisPemeriksaanModel>>();
 		response.setStatus(200);
-		List<JenisPemeriksaanModel> model = jenisPeriksaDb.findAll();
-		for (JenisPemeriksaanModel a:model) {
-			a.setListSupplies(null);
-			a.setListPemeriksaan(null);
-		}
 		response.setMessage("Success");
 		response.setResult(jenisPeriksaDb.findAll());
 		return response;
@@ -119,10 +124,6 @@ public class ApiController {
 		BaseResponse<List<JadwalJagaModel>> response = new BaseResponse<List<JadwalJagaModel>>();
 		response.setStatus(200);
 		response.setMessage("Success");
-		List<JadwalJagaModel> model = jadwalDb.findAll();
-		for (JadwalJagaModel a : model) {
-//			a.setListPemeriksaan(null);
-		}
 		response.setResult(jadwalDb.findAll());
 		return response;
 	}
@@ -131,17 +132,17 @@ public class ApiController {
 	 * Fitur 10
 	 */
 	@PostMapping(value="/kirim/hasil-lab")
-	public HasilLab addLabResult(@RequestParam (value="id") Long id) {
+	public HasilLab addLabResult(@RequestParam (value="id") int id) {
 		PemeriksaanModel pemeriksaan = pemeriksaanDb.findById(id).get();
 		HasilLab hasil = new HasilLab();
 		PasienDetail pasien = new PasienDetail();
 		pasien.setId(pemeriksaan.getIdPasien());
 		hasil.setJenis(pemeriksaan.getJenisPemeriksaan().getNama());
-		hasil.setHasil(pemeriksaan.getHasil().substring(1));
+		hasil.setHasil(pemeriksaan.getHasil());
 		hasil.setTanggalPengajuan(pemeriksaan.getTanggalPengajuan());
 		hasil.setPasien(pasien);
 		try {
-			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/addLabResult", hasil, ResponseEntity.class);
+			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/03/addLabResult", hasil, ResponseEntity.class);
 			return hasil;
 		}
 		catch(Exception e) {
@@ -151,7 +152,7 @@ public class ApiController {
 	}
 	
 //	@PostMapping(value="/kirim/jadwal-jaga")
-//	public JadwalJagaModel jadwalJagaKirim(@RequestParam (value="id") Long id) {
+//	public JadwalJagaModel jadwalJagaKirim(@RequestParam (value="id") int id) {
 //		JadwalJagaModel jadwalJaga = jadwalDb.findById(id).get();
 //		try {
 //			restTemplate.postForObject("http://si-appointment.herokuapp.com/api/addLabResult", jadwalJaga, ResponseEntity.class); //link diganti sama web service yg dibuat igd

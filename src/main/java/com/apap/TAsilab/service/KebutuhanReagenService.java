@@ -8,5 +8,5 @@ import com.apap.TAsilab.model.KebutuhanReagenModel;
 public interface KebutuhanReagenService {
 	void add(KebutuhanReagenModel kebutuhanReagen);
 	List<KebutuhanReagenModel> findAll();
-	Optional<KebutuhanReagenModel> findReagenById(Long idReagen);
+	Optional<KebutuhanReagenModel> findReagenById(int idReagen);
 }

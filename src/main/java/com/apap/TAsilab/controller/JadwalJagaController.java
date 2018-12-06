@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -84,30 +85,35 @@ public class JadwalJagaController {
 			return "failed-date-passed";
 		}
 		else {
+			try {
+				restTemplate.postForObject("http://localhost:6060/testing/kirim-jadwal", jadwalJaga, ResponseEntity.class);
+				//link diganti sama web service yg dibuat igd
+			}
+			catch(Exception e) {
+				
+			}
 			jadwalJagaService.addJadwalJaga(jadwalJaga);
 			model.addAttribute("msg", "jadwal berhasil ditambah");
 			return "success-page";
 		}
-		
 	}
 	
 	@RequestMapping(value = "/lab/jadwal-jaga/{tanggal}", method = RequestMethod.GET)
 	public String lihatJadwalJaga(@PathVariable(value="tanggal") String tanggal, Model model) throws Throwable{
 		
-//		JadwalJagaModel jadwalJaga = null;
-//		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJaga();
-//		model.addAttribute("listJadwalJaga", listJadwalJaga);
-		
-		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getJadwalJagaByTangal(tanggal);
-		model.addAttribute("listJadwalJaga", listJadwalJaga);
-		model.addAttribute("listStaff", this.getStaff());
+//		String[] formDateOnly = tanggal.split(" ");
+//		String[] exactDate =  formDateOnly[0].split("-");
+//		
+//		String[] hari = new String[] {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+//		
+//		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getJadwalJagaByTangal(tanggal);
 		return "lihat-jadwal-jaga";
 	}
 	
 	
 	
 	@RequestMapping(value = "/lab/jadwal-jaga/ubah/{id}", method = RequestMethod.GET)
-	public String ubahJadwalJaga(@PathVariable(value="id") long id, Model model) throws Exception, Throwable{
+	public String ubahJadwalJaga(@PathVariable(value="id") int id, Model model) throws Exception, Throwable{
 		
 		JadwalJagaModel oldJadwalJaga = jadwalJagaService.getJadwalJagaById(id);
 		model.addAttribute("oldJadwalJaga", oldJadwalJaga);
@@ -120,7 +126,7 @@ public class JadwalJagaController {
 	
 	//cek lagi seharusnya outputnya gimana
 	@RequestMapping(value = "/lab/jadwal-jaga/ubah/{id}", method = RequestMethod.POST)
-	public String ubahJadwalJagaSubmit(@PathVariable(value="id") long id, Model model, @ModelAttribute JadwalJagaModel newJadwalJaga){
+	public String ubahJadwalJagaSubmit(@PathVariable(value="id") int id, Model model, @ModelAttribute JadwalJagaModel newJadwalJaga){
 		
 		//ini untuk handle agar date yang dimasukkan bukan date yang sudah berlalu
 		//kenapa yg di cek jadwal yg lama bukan jadwal yg barunya?
