@@ -1,7 +1,5 @@
 package com.apap.TAsilab.controller;
 
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.apap.TAsilab.model.LabSuppliesModel;
 import com.apap.TAsilab.service.LabSuppliesService;
@@ -37,7 +34,7 @@ public class LabSuppliesController {
 		return "allPersediaan";
 	}
 	@RequestMapping(value = "/lab/stok/ubah/{id}", method = RequestMethod.GET)
-	public String ubahStok(@PathVariable (value="id") long id, Model model) {
+	public String ubahStok(@PathVariable (value="id") int id, Model model) {
 		LabSuppliesModel labUbah = labSupService.findById(id);
 		model.addAttribute("lab", labUbah);
 		return "ubah-lab";

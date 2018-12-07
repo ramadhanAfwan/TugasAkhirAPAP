@@ -32,7 +32,7 @@ public class JenisPemeriksaanModel implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 	
 	@NotNull
     @Size(max = 255)
@@ -46,11 +46,11 @@ public class JenisPemeriksaanModel implements Serializable {
 	@OneToMany(mappedBy = "jenisPemeriksaan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PemeriksaanModel> listPemeriksaan;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

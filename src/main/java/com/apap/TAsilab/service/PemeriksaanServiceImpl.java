@@ -1,7 +1,5 @@
 package com.apap.TAsilab.service;
 
-import java.util.Calendar;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +17,8 @@ import com.apap.TAsilab.model.LabSuppliesModel;
 import com.apap.TAsilab.model.PemeriksaanModel;
 import com.apap.TAsilab.repository.JenisPemeriksaanDB;
 import com.apap.TAsilab.repository.PemeriksaanDB;
+import com.apap.TAsilab.rest.KamarDetail;
 import com.apap.TAsilab.rest.PasienDetail;
-import com.apap.TAsilab.rest.PemeriksaanDetail;
 
 
 @Service
@@ -44,15 +42,15 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
         JSONObject json = (JSONObject) parser.parse(response);
         JSONObject result = (JSONObject) json.get("result");
         String nama = (String) result.get("nama");
-        long id_pasien = (long) result.get("id");
+        int id_pasien = Integer.parseInt(result.get("id").toString());
         pasien.setId(id_pasien);
         pasien.setNama(nama);
         return pasien;
 	}
 	
 	@Override
-	public Map<Long, PasienDetail> getPatient() throws ParseException {
-		Map<Long, PasienDetail> mapPasien = new HashMap<Long, PasienDetail>();
+	public Map<Integer, PasienDetail> getPatient() throws ParseException {
+		Map<Integer, PasienDetail> mapPasien = new HashMap<Integer, PasienDetail>();
 		List<PemeriksaanModel> listPemeriksaan = pemeriksaanDb.findAll();
 		for (PemeriksaanModel pemeriksaan : listPemeriksaan){
 			PasienDetail pasien = this.getPasien((int)pemeriksaan.getIdPasien());
@@ -62,26 +60,35 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 	}
 	
 //	@Override
-//	public PemeriksaanDetail getPemeriksaan() throws ParseException {
-//		PemeriksaanDetail pemeriksaan = new PemeriksaanDetail();
-//		JSONParser parser = new JSONParser();
-//		String response = restTemplate.getForObject("http://si-rawatinap.herokuapp.com/api/get-all-kamar/", String.class);
-//        System.out.println(response);
-//        JSONObject json = (JSONObject) parser.parse(response);
-//        JSONObject result = (JSONObject) json.get("result");
-//        String nama = (String) result.get("nama");
-//        long id_pasien = (long) result.get("id");
-//        pemeriksaan.setId(id_pasien);
-//        pemeriksaan.setNama(nama);
-//        System.out.println(nama);
-//        System.out.println(id_pasien);
-//        return pemeriksaan;
+//	public Map<Integer, KamarDetail> getRoom() throws ParseException {
+//		Map<Integer, KamarDetail> mapKamar = new HashMap<Integer, KamarDetail>();
+//		List<PemeriksaanModel> listPemeriksaan = pemeriksaanDb.findAll();
+//		for (PemeriksaanModel pemeriksaan : listPemeriksaan){
+//			KamarDetail kamar = this.getKamar((int)pemeriksaan.getIdPasien());
+//			mapKamar.put(pemeriksaan.getId(), kamar);
+//		}
+//		
+//		return mapKamar;
 //	}
 	
-	
+//	@Override
+//	public KamarDetail getKamar(int idPasien) throws ParseException {
+//		KamarDetail kamar = new KamarDetail();
+//		JSONParser parser = new JSONParser();
+//		String response = restTemplate.getForObject("http://si-rawatInap.herokuapp.com/api/get-all-kamar", String.class);
+//        JSONObject json = (JSONObject) parser.parse(response);
+//        JSONObject result = (JSONObject) json.get("result");
+//        int requestPasien = (int) result.get("id");
+//        int id_pasien = Integer.parseInt(result.get("id_pasien").toString());
+//        int assignKamar = (int) result.get("assign");
+//        kamar.setIdPasien(id_pasien);
+//        kamar.setRequestPasien(requestPasien);
+//        kamar.setAssignKamar(assignKamar);
+//        return kamar;
+//	}
 	
 	@Override
-	public PemeriksaanModel findPemeriksaanById(long id) {
+	public PemeriksaanModel findPemeriksaanById(int id) {
 		// TODO Auto-generated method stub
 		return pemeriksaanDb.findById(id).get();
 	}
@@ -93,9 +100,14 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 	}
 
 	@Override
-	public void updatePemeriksaan(PemeriksaanModel pemeriksaan) throws java.text.ParseException {
-
-		JenisPemeriksaanModel jp = jenisPemeriksaanDb.findById(pemeriksaan.getId());
+	public void updatePemeriksaan(PemeriksaanModel pemeriksaan) throws ParseException {
+		if(pemeriksaan.getStatus()==1) {
+			pemeriksaan.setHasil("Belum Ada Hasil");
+		}
+		else if(pemeriksaan.getStatus()==2) {
+			pemeriksaan.setHasil(pemeriksaan.getHasil());
+		}
+		JenisPemeriksaanModel jp = jenisPemeriksaanDb.findById(pemeriksaan.getJenisPemeriksaan().getId());
 		for (LabSuppliesModel a: jp.getListSupplies()){
 			a.setJumlah(a.getJumlah()-1);
 		}
@@ -105,5 +117,10 @@ public class PemeriksaanServiceImpl implements PemeriksaanService{
 		pemeriksaanDb.save(pemeriksaan);
 	}
 
-
+	@Override
+	public void delete(PemeriksaanModel pemeriksaan) {
+		// TODO Auto-generated method stub
+		pemeriksaanDb.delete(pemeriksaan);
+		
+	}
 }

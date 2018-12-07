@@ -15,7 +15,7 @@ public class JenisPemeriksaanServiceImpl implements JenisPemeriksaanService {
 	JenisPemeriksaanDB jenisPemeriksaanDb;
 	
 	@Override
-	public JenisPemeriksaanModel findById(long id) {
+	public JenisPemeriksaanModel findById(int id) {
 		// TODO Auto-generated method stub
 		return jenisPemeriksaanDb.findById(id);
 	}

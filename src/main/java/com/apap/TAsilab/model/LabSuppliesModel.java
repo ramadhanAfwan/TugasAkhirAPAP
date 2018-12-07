@@ -28,7 +28,7 @@ public class LabSuppliesModel implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 	
 	@NotNull
     @Size(max = 255)
@@ -54,11 +54,11 @@ public class LabSuppliesModel implements Serializable {
     @ManyToMany(mappedBy = "listSupplies")
     private List<JenisPemeriksaanModel> listJenisPemeriksaan = new ArrayList<>();
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
