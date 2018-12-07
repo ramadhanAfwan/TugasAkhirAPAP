@@ -95,11 +95,6 @@ public class ApiController {
         response.setMessage("success");
         List<KebutuhanReagenModel> listKebutuhanReagen = kebutuhanReagenDb.findAll();
         
-        // assign attribute yang tidak dibutuhkan dan akan merefer model lainnya menjadi null agar tidak terjadi error
-        for(KebutuhanReagenModel kebutuhanReagen :listKebutuhanReagen) {
-        	kebutuhanReagen.getReagen().setListJenisPemeriksaan(null);
-        	kebutuhanReagen.getReagen().setListKebutuhanReagen(null);
-        }
         response.setResult(listKebutuhanReagen);
         return response;
     }

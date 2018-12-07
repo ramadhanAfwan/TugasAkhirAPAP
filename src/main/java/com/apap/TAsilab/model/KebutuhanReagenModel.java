@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "kebutuhan_reagen")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class KebutuhanReagenModel implements Serializable {
 	// Abaikan attribute ini
 	/**
